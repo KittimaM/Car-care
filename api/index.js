@@ -2,7 +2,7 @@ import React from 'react'
 
 const index = () => {
   return (
-    <div>test lastest edit</div>
+    <div>test main edit</div>
   )
 }
 

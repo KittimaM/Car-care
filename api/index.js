@@ -2,7 +2,7 @@ import React from 'react'
 
 const index = () => {
   return (
-    <div>test branch</div>
+    <div>index branch</div>
   )
 }
 

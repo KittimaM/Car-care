@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+ 
   #mysql
   db:
     image: mysql
@@ -9,6 +10,9 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: carcare
+      MYSQL_DATABASE: carcare
+    ports:
+      - '3306:3306'
     networks:
       - dev_networks
 
@@ -22,9 +26,11 @@ services:
       - '8080:80'
     environment:
       PMA_HOST: db
+      PMA_PORT: 3306
       MYSQL_ROOT_PASSWORD: carcare
     networks:
       - dev_networks
+
 
 networks:
   dev_networks:

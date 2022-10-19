@@ -14,9 +14,8 @@ function App() {
   }, []);
   return (
     <div>
+      <h1>Kittima Edit</h1>
       {items.map((item) => (
-
-          
         <h2>{item.id} : {item.descr} : {item.price}</h2>
       ))}
     </div>

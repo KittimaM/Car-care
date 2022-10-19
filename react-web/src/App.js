@@ -14,7 +14,7 @@ function App() {
   }, []);
   return (
     <div>
-      <h1>Kittima in main</h1>
+      <h1>Kittima in main get in secondPage</h1>
       {items.map((item) => (
         <h2>{item.id} : {item.descr} : {item.price}</h2>
       ))}

@@ -14,7 +14,7 @@ function App() {
   }, []);
   return (
     <div>
-      <h1>Kittima Edit in firstPage</h1>
+      <h1>Kittima Edit in firstPage 2rd times</h1>
       {items.map((item) => (
         <h2>{item.id} : {item.descr} : {item.price}</h2>
       ))}

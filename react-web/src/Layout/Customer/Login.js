@@ -5,7 +5,7 @@ const Login = () => {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-      fetch("http://localhost:5000")
+      fetch("http://localhost:5000/login")
         .then((res) => res.json())
         .then((result) => {
           setItems(result);

@@ -14,7 +14,7 @@ const connection = mysql.createConnection({
 
 app.use(cors());
 
-app.get("/", function (req, res, next) {
+app.get("/login", function (req, res, next) {
   connection.query("SELECT * FROM `menu` ", function (err, results, fields) {
     res.json(results); // results contains rows returned by server
   });

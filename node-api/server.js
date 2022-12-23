@@ -5,64 +5,16 @@ const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-
-const mysql = require("mysql2");
-
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  database: "carcare",
-  password: "carcare",
-  port: 3307,
-});
+const { RegisterCustomer } = require("./Controllers/Customer/RegisterCustomer");
+const { Login } = require("./Controllers/Login");
+const { RegisterStaff } = require("./Controllers/Staff/RegisterStaff");
 
 app.use(cors());
 
-app.post("/login_customer", jsonParser, function (req, res) {
-  res.json(req.body);
-});
+app.post("/register_customer", jsonParser, RegisterCustomer);
 
-app.post("/register_customer", jsonParser, function (req, res) {
-  bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
-    connection.execute(
-      "INSERT INTO customer (phone,firstName,lastName,password) VALUES (?,?,?,?) ",
-      [req.body.phone, req.body.firstName, req.body.lastName, hash],
-      function (err) {
-        if (err) {
-          res.json({ status: "ERROR", msg: err });
-          return;
-        }
-        res.json({ status: "OK" });
-      }
-    );
-  });
-});
 
-app.post("/login", jsonParser, function (req, res) {
-  connection.execute(
-    "SELECT * FROM customer WHERE phone=?",
-    [req.body.phone],
-    function (err, user, fields) {
-      if (err) {
-        res.json({ status: "ERROR", msg: err });
-        return;
-      }
-      if (user.length == 0) {
-        res.json({ status: "ERROR", msg: "user not found" });
-        return;
-      }
-      bcrypt.compare(
-        req.body.password,
-        user[0].password,
-        function(err,isLogin){
-          if(isLogin){
-            const token = 
-          }
-        }
-      )
-    }
-  );
-});
+app.post("/register_staff", jsonParser, RegisterStaff);
 
 // app.get("/", function (req, res, next) {
 //   connection.query("SELECT * FROM users ", function (err, results, fields) {
@@ -71,6 +23,8 @@ app.post("/login", jsonParser, function (req, res) {
 //   const message = "U r in / path"
 //   res.json(message)
 // });
+
+app.post("/login", jsonParser, Login);
 
 app.listen(5000, function () {
   console.log("CORS-enabled web server listening on port 5000");

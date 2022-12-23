@@ -1,6 +1,6 @@
 import React from "react";
 
-function Register() {
+function RegisterCustomer() {
   const handleSignUp = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -30,4 +30,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default RegisterCustomer;

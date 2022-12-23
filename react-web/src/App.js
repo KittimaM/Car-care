@@ -1,18 +1,17 @@
+//หน้าแรก
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Login from "./Layout/Customer/Login";
-import Home from "./Layout/Home";
-import Navbar from "./Layout/Navbar/Navbar";
+import { BrowserRouter, NavLink, Routes, Route } from "react-router-dom";
+import Register from "./Layouts/Customer/Register";
+
 function App() {
   return (
-    <Router>
-      <Navbar />
-      <Switch>
-        <Route path="/login" exact><Login /></Route>
-        <Route path="/" exact><Home /></Route>
-        <Route path="/signup"></Route>
-      </Switch>
-    </Router>
+    <BrowserRouter>
+      <NavLink to="/login_customer">Login</NavLink>
+      <NavLink to="/register_customer">Register</NavLink>
+      <Routes>
+        <Route path="/register_customer" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

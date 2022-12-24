@@ -1,11 +1,11 @@
 import React from 'react'
-import Index from './Navbar/Index'
+import Navbar from './Navbar'
 
 function Home() {
   return (
     <div>
-      <Index/>
-      this is first page u c
+      <Navbar/>
+      This is Home of customer
     </div>
   )
 }

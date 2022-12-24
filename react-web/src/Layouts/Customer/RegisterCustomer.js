@@ -18,6 +18,8 @@ function RegisterCustomer() {
       },
       body: JSON.stringify(jsonData),
     });
+    alert("Register Success")
+    
   };
   return (
     <form onSubmit={handleSignUp}>

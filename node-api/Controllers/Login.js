@@ -37,6 +37,7 @@ const Login = (req, res) => {
                       status: "OK",
                       msg: "login success",
                       token,
+                      role: staff[0].role
                     });
                   } else {
                     res.json({
@@ -61,7 +62,7 @@ const Login = (req, res) => {
               const token = jwt.sign({ phone: user[0].phone }, secret, {
                 expiresIn: "1h",
               });
-              res.json({ status: "OK", msg: "login success", token });
+              res.json({ status: "OK", msg: "login success", token});
             } else {
               res.json({ status: "FAILED", msg: "password is incorrect" });
             }

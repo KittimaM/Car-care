@@ -24,7 +24,7 @@ function Login() {
             alert("staff");
           } else {
             alert("customer");
-            window.location = '/home_customer'
+            window.location="/home_customer"
           }
         } else if (data.status === "FAILED" || data.status === "ERROR") {
           alert(data.msg);

@@ -1,16 +1,16 @@
 import React from "react";
 import { BrowserRouter, NavLink, Route } from "react-router-dom";
-import Home from "./Home";
+import Home from "../Customer/Home";
 
-function Navbar() {
+function NavbarCustomer() {
   return (
     <BrowserRouter>
       <NavLink to="/home_customer">HOME</NavLink>
       <Routes>
-        <Route path="/home_customer" element={<Main />} />
+        <Route path="/home_customer" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
-export default Navbar;
+export default NavbarCustomer;

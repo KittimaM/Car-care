@@ -37,11 +37,14 @@ function Login() {
       });
   };
   return (
-    <form onSubmit={handleLogin}>
-      <input type="tel" name="phone" pattern="[0-9]{10}" required />
-      <input type="password" name="password" required />
-      <button type="submit">Submit</button>
-    </form>
+    <div className="container">
+      <h1 className="text-center mb-5 text-uppercase text-muted">Login</h1>
+    </div>
+    // <form onSubmit={handleLogin}>
+    //   <input type="tel" name="phone" pattern="[0-9]{10}" required />
+    //   <input type="password" name="password" required />
+    //   <button type="submit">Submit</button>
+    // </form>
   );
 }
 

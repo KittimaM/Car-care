@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
 function FirstPage() {
+  const [errorMessage, setErrorMessage] = React.useState("");
+  const handleClick = () => {
+    setErrorMessage("Example error message!");
+  };
   return (
     <div>
-      this is first page u c
+      <button onClick={handleClick}>Show error message</button>
+      {errorMessage && <div> {errorMessage} </div>}
     </div>
   );
 }

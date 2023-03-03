@@ -3,7 +3,7 @@ const saltRounds = 10;
 const Conn = require("../../db");
 
 const RegisterCustomer = (req, res) => {
-  const { phone, firstName, lastName, password } = req.body;
+  const { phone, firstName, lastName, cus_password } = req.body;
   Conn.execute(
     `SELECT * FROM customer WHERE phone = ? OR (firstName = ? AND lastName = ?)`,
     [phone, firstName, lastName],
@@ -13,12 +13,12 @@ const RegisterCustomer = (req, res) => {
       } else if (user.length != 0) {
         res.json({ status: "Duplicate", msg: "Already Have This User" });
       } else {
-        bcrypt.hash(password, saltRounds, function (err, hash) {
+        bcrypt.hash(cus_password, saltRounds, function (err, hash) {
           if (err) {
             res.json({ status: "ERROR in hash", msg: err });
           } else {
             Conn.execute(
-              `INSERT INTO customer (phone,firstName,lastName,password) VALUES (?,?,?,?)`,
+              `INSERT INTO customer (phone,firstName,lastName,cus_password) VALUES (?,?,?,?)`,
               [phone, firstName, lastName, hash],
               function (err, result) {
                 if (err) {

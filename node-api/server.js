@@ -26,11 +26,13 @@ const {
   DeleteCarSize,
   UpdateCarSize,
 } = require("./Controllers/Shop/CarSize");
+const { LoginCus } = require("./Controllers/Customer/Login_Cus");
 
 
 
 app.use(cors());
 
+app.post("/login-cus",jsonParser,LoginCus)
 app.post("/register_cus", jsonParser, RegisterCustomer);
 app.post("/update-cus", jsonParser, UpdateCustomer);
 //------------------------------------------

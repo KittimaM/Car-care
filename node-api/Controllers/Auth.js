@@ -1,14 +1,19 @@
 const jwt = require("jsonwebtoken");
-const secret = "carcarecabuki";
-const Conn = require("../../db");
+const secret = process.env.SECRET_WORD;
 
-const AuthStaff = (req, res) => {
+//use auth when wanna use url that have to login
+const Auth = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     const decoded = jwt.verify(token, secret);
-    res.json({ status: "OK", decoded });
+    if (decoded.role == 1) {
+      next();
+    } else {
+      res.json({ status: "ERROR", msg: "verify token" });
+    }
   } catch (err) {
-    res.json({ status: "ERROR", msg: err });
+    res.json({ status: "ERROR", msg: "in auth" });
   }
 };
-exports.AuthStaff = AuthStaff;
+
+exports.Auth = Auth;

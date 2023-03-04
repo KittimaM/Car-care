@@ -9,7 +9,7 @@ const {
   RegisterCustomer,
   UpdateCustomer,
 } = require("./Controllers/Customer/Customer_info");
-const { LoginStaff } = require("./Controllers/Staff/Login_Staff");
+const { LoginStaff, LogoutStaff } = require("./Controllers/Staff/Login_Staff");
 const {
   RegisterStaff,
   DeleteStaff,
@@ -26,7 +26,7 @@ const {
   UpdateCarSize,
 } = require("./Controllers/Shop/CarSize");
 const { LoginCus } = require("./Controllers/Customer/Login_Cus");
-const { AuthStaff } = require("./Controllers/Staff/Auth_Staff");
+const { Auth } = require("./Controllers/Auth");
 
 app.use(cors());
 
@@ -35,8 +35,11 @@ app.post("/register_cus", jsonParser, RegisterCustomer);
 app.post("/update-cus", jsonParser, UpdateCustomer);
 //------------------------------------------
 app.post("/login-staff", jsonParser, LoginStaff);
+app.post("/logout-staff", jsonParser, LogoutStaff);
 app.post("/register_staff", jsonParser, RegisterStaff);
-app.post("/del-staff", jsonParser, DeleteStaff);
+
+app.post("/del-staff", jsonParser, Auth, DeleteStaff);
+
 app.post("/update-staff", jsonParser, UpdateStaff);
 //------------------------------------------
 app.post("/add-role", jsonParser, AddRoleStaff);
@@ -49,7 +52,7 @@ app.post("/update-car-size", jsonParser, UpdateCarSize);
 //------------------------------------------
 
 //for testing
-app.post("/auth-staff", jsonParser, AuthStaff);
+// app.post("/auth-staff", jsonParser, AuthStaff);
 
 // auth specific owner manager
 app.listen(5000, function () {

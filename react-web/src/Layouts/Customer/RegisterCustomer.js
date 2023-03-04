@@ -1,5 +1,6 @@
 import React from "react";
 
+
 function RegisterCustomer() {
   const handleSignUp = (event) => {
     event.preventDefault();
@@ -18,11 +19,13 @@ function RegisterCustomer() {
       },
       body: JSON.stringify(jsonData),
     });
-    alert("Register Success")
-    
+    alert("Register Success");
   };
   return (
+
+
     <form onSubmit={handleSignUp}>
+
       <input type="tel" name="phone" pattern="[0-9]{10}" required />
       <input type="text" name="firstName" pattern="[A-Za-z]+" required />
       <input type="text" name="lastName" pattern="[A-Za-z]+" required />

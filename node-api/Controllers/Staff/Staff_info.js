@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const Conn = require("../../db");
 const jwt = require("jsonwebtoken");
-const secret = "carcarecabuki";
+const secret = process.env.SECRET_WORD;
 
 const RegisterStaff = (req, res, next) => {
   const { phone, firstName, lastName, staff_password, staff_id, role } =
@@ -40,15 +40,7 @@ const RegisterStaff = (req, res, next) => {
   );
 };
 
-// const AuthStaff = (req, res, next) => {
-// try {
-//   const token = req.headers.authorization.split(" ")[1];
-//   const decoded = jwt.verify(token, secret);
-//   res.json({ status: "OK", decoded });
-// } catch (err) {
-//   res.json({ status: "ERROR", msg: err });
-// }
-// };
+
 
 //check role
 const DeleteStaff = (req, res, next) => {

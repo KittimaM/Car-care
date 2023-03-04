@@ -1,2 +1,0 @@
-- auth update delete staff
-- move const secret = "carcarecabuki"; into env

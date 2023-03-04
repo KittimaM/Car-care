@@ -1,7 +1,7 @@
 const Conn = require("../../db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const secret = "carcarecabuki";
+const secret = process.env.SECRET_WORD;
 
 const LoginCus = (req, res) => {
   const { phone, cus_password  } = req.body;

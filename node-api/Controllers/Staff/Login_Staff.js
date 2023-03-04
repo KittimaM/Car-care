@@ -1,10 +1,14 @@
 const Conn = require("../../db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const secret = "carcarecabuki";
+const date = require("date-and-time");
+const secret = process.env.SECRET_WORD;
 
-const LoginStaff = (req, res) => {
-  const { phone, staff_password  } = req.body;
+const LoginStaff = (req, res, next) => {
+  const now = new Date();
+  const day = date.format(now, "YYYY-MM-DD");
+  const time = date.format(now, "HH:mm:ss");
+  const { phone, staff_password } = req.body;
   Conn.execute(
     `SELECT * FROM staff WHERE phone = ?`,
     [phone],
@@ -22,12 +26,29 @@ const LoginStaff = (req, res) => {
               res.json({ status: "ERROR in compare", msg: err });
             }
             if (isLogin) {
-              const token = jwt.sign({ phone: user[0].phone ,role: user[0].role_id}, secret, {
-                expiresIn: "1H",
-              });
-              res.json({status: "OK",msg: "Login success!",token: token})
-            }else{
-              res.json({status: "ERROR",msg: "password is incorrect"})
+              //save login to db
+              Conn.execute(
+                `INSERT INTO worktime (phone,day,start_time) VALUES ((SELECT phone FROM staff WHERE phone = ?),?,?)`,
+                [user[0].phone, day, time],
+                function (err, result) {
+                  if (err) {
+                    res.json({ status: "ERROR in insert worktime", msg: err });
+                  } else {
+                    const token = jwt.sign(
+                      { phone: user[0].phone, role: user[0].role_id },
+                      secret,
+                      { expiresIn: "1d" }
+                    );
+                    res.json({
+                      status: "OK",
+                      msg: "Login success!",
+                      token: token,
+                    });
+                  }
+                }
+              );
+            } else {
+              res.json({ status: "ERROR", msg: "password is incorrect" });
             }
           }
         );
@@ -35,5 +56,6 @@ const LoginStaff = (req, res) => {
     }
   );
 };
+
 
 exports.LoginStaff = LoginStaff;

@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const secret = "carcarecabuki";
+const secret = process.env.SECRET_WORD;
 const Conn = require("../../db");
 
 const Auth = (req, res) => {

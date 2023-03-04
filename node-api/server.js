@@ -3,6 +3,7 @@ const cors = require("cors");
 const app = express();
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
+require("dotenv").config();
 
 const {
   RegisterCustomer,
@@ -13,9 +14,7 @@ const {
   RegisterStaff,
   DeleteStaff,
   UpdateStaff,
-  AuthStaff,
 } = require("./Controllers/Staff/Staff_info");
-const { Auth } = require("./Controllers/Customer/Auth_Cus");
 const {
   AddRoleStaff,
   DeleteRoleStaff,
@@ -27,12 +26,11 @@ const {
   UpdateCarSize,
 } = require("./Controllers/Shop/CarSize");
 const { LoginCus } = require("./Controllers/Customer/Login_Cus");
-
-
+const { AuthStaff } = require("./Controllers/Staff/Auth_Staff");
 
 app.use(cors());
 
-app.post("/login-cus",jsonParser,LoginCus)
+app.post("/login-cus", jsonParser, LoginCus);
 app.post("/register_cus", jsonParser, RegisterCustomer);
 app.post("/update-cus", jsonParser, UpdateCustomer);
 //------------------------------------------
@@ -50,8 +48,8 @@ app.post("/del-car-size", jsonParser, DeleteCarSize);
 app.post("/update-car-size", jsonParser, UpdateCarSize);
 //------------------------------------------
 
-app.post("/auth", jsonParser, Auth);
-
+//for testing
+app.post("/auth-staff", jsonParser, AuthStaff);
 
 // auth specific owner manager
 app.listen(5000, function () {

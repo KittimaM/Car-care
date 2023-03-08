@@ -13,7 +13,7 @@ const RegisterStaff = (req, res, next) => {
       if (err) {
         res.json({ status: "ERROR in select from staff", msg: err });
       } else if (user.length != 0) {
-        res.json({ status: "Duplicate", msg: "Already Have This Staff" });
+        res.json({ status: "Duplicated", msg: "Already Have This Staff" });
       } else {
         bcrypt.hash(staff_password, saltRounds, function (err, hash) {
           if (err) {
@@ -40,7 +40,7 @@ const RegisterStaff = (req, res, next) => {
 
 //check role
 const DeleteStaff = (req, res, next) => {
-  res.json("in del")
+  res.json("in del");
   // const { phone, firstName, lastName, staff_id } = req.body;
   // Conn.execute(
   //   `SELECT phone FROM staff WHERE phone = ? OR ( firstName = ? AND lastName = ?)  OR staff_id = ?`,

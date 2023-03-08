@@ -26,7 +26,12 @@ const {
   UpdateCarSize,
 } = require("./Controllers/Shop/CarSize");
 const { LoginCus } = require("./Controllers/Customer/Login_Cus");
-const { Auth } = require("./Controllers/Auth");
+const { AuthStaff } = require("./Controllers/Auth");
+const {
+  AddService,
+  DeleteService,
+  UpdateService,
+} = require("./Controllers/Shop/Service");
 
 app.use(cors());
 
@@ -36,20 +41,29 @@ app.post("/update-cus", jsonParser, UpdateCustomer);
 //------------------------------------------
 app.post("/login-staff", jsonParser, LoginStaff);
 app.post("/logout-staff", jsonParser, LogoutStaff);
-app.post("/register_staff", jsonParser, RegisterStaff);
-
-app.post("/del-staff", jsonParser, Auth, DeleteStaff);
-
-app.post("/update-staff", jsonParser, UpdateStaff);
 //------------------------------------------
-app.post("/add-role", jsonParser, AddRoleStaff);
-app.post("/del-role", jsonParser, DeleteRoleStaff);
-app.post("/update-role", jsonParser, UpdateRoleStaff);
+
+
+
+// ****** need authstaff ****
+
+app.post("/register_staff", jsonParser, AuthStaff, RegisterStaff);
+app.post("/del-staff", jsonParser, AuthStaff, DeleteStaff);
+app.post("/update-staff", jsonParser, AuthStaff, UpdateStaff);
+//------------------------------------------
+app.post("/add-role", jsonParser, AuthStaff, AddRoleStaff);
+app.post("/del-role", jsonParser, AuthStaff, DeleteRoleStaff);
+app.post("/update-role", jsonParser, AuthStaff, UpdateRoleStaff);
 //---------------------------------------------
-app.post("/add-car-size", jsonParser, AddCarSize);
-app.post("/del-car-size", jsonParser, DeleteCarSize);
-app.post("/update-car-size", jsonParser, UpdateCarSize);
+app.post("/add-car-size", jsonParser, AuthStaff, AddCarSize);
+app.post("/del-car-size", jsonParser, AuthStaff, DeleteCarSize);
+app.post("/update-car-size", jsonParser, AuthStaff, UpdateCarSize);
 //------------------------------------------
+app.post("/add-service", jsonParser, AuthStaff, AddService);
+app.post("/del-service", jsonParser, AuthStaff, DeleteService);
+app.post("/update-service", jsonParser, AuthStaff, UpdateService);
+
+// ****** need authstaff ****
 
 //for testing
 // app.post("/auth-staff", jsonParser, AuthStaff);

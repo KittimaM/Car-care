@@ -40,31 +40,30 @@ const RegisterStaff = (req, res, next) => {
 
 //check role
 const DeleteStaff = (req, res, next) => {
-  res.json("in del");
-  // const { phone, firstName, lastName, staff_id } = req.body;
-  // Conn.execute(
-  //   `SELECT phone FROM staff WHERE phone = ? OR ( firstName = ? AND lastName = ?)  OR staff_id = ?`,
-  //   [phone, firstName, lastName, staff_id],
-  //   function (err, user) {
-  //     if (err) {
-  //       res.json({ status: "ERROR in select", msg: err });
-  //     } else if (user.length === 0) {
-  //       res.json({ status: "NO USER" });
-  //     } else {
-  //       Conn.execute(
-  //         `DELETE FROM staff WHERE phone = ? `,
-  //         [user[0].phone],
-  //         function (err, result) {
-  //           if (err) {
-  //             res.json({ status: "ERROR in del", msg: err });
-  //           } else {
-  //             res.json({ status: "OK", msg: "Delete Success!" });
-  //           }
-  //         }
-  //       );
-  //     }
-  //   }
-  // );
+  const { phone, firstName, lastName, staff_id } = req.body;
+  Conn.execute(
+    `SELECT phone FROM staff WHERE phone = ? OR ( firstName = ? AND lastName = ?)  OR staff_id = ?`,
+    [phone, firstName, lastName, staff_id],
+    function (err, user) {
+      if (err) {
+        res.json({ status: "ERROR in select", msg: err });
+      } else if (user.length === 0) {
+        res.json({ status: "No User" });
+      } else {
+        Conn.execute(
+          `DELETE FROM staff WHERE phone = ? `,
+          [user[0].phone],
+          function (err, result) {
+            if (err) {
+              res.json({ status: "ERROR in del", msg: err });
+            } else {
+              res.json({ status: "OK", msg: "Delete Success!" });
+            }
+          }
+        );
+      }
+    }
+  );
 };
 
 //check if have it or not && check if old and new data is the same
@@ -91,7 +90,7 @@ const UpdateStaff = (req, res, next) => {
           if (err) {
             res.json({ status: "ERROR in select old_phone" });
           } else if (user.length == 0) {
-            res.json({ status: "NO USER" });
+            res.json({ status: "No User" });
           } else {
             Conn.execute(
               `SELECT * FROM staff WHERE phone=? OR (firstName=? AND lastName=?) OR staff_id=?`,
@@ -111,7 +110,8 @@ const UpdateStaff = (req, res, next) => {
                       res.json({ status: "ERROR in hash" });
                     } else {
                       Conn.execute(
-                        `UPDATE staff SET phone=?,firstName=?,lastName=?,staff_password=?,staff_id=?,role_id=(SELECT id FROM role WHERE name =?) 
+                        `UPDATE staff 
+                        SET phone=?,firstName=?,lastName=?,staff_password=?,staff_id=?,role_id=(SELECT id FROM role WHERE name =?) 
                         WHERE phone = ?`,
                         [
                           phone,

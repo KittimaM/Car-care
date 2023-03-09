@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const date = require("date-and-time");
 const secret = process.env.SECRET_WORD;
-
+const schedule = require("node-schedule");
 
 const now = new Date();
 const day = date.format(now, "YYYY-MM-DD");
@@ -18,7 +18,7 @@ const LoginStaff = (req, res, next) => {
       if (err) {
         res.json({ status: "ERROR", msg: "in select if have data", err });
       } else if (user.length == 0) {
-        res.json({ status: "NO USER", msg: "This staff doesn't exist" });
+        res.json({ status: "No User", msg: "This staff doesn't exist" });
       } else {
         bcrypt.compare(
           staff_password,
@@ -56,7 +56,7 @@ const LoginStaff = (req, res, next) => {
                           const token = jwt.sign(
                             { phone: user[0].phone, role: user[0].role_id },
                             secret,
-                            { expiresIn: "1d" }
+                            { expiresIn: "20h" }
                           );
                           res.json({
                             status: "OK",
@@ -79,51 +79,88 @@ const LoginStaff = (req, res, next) => {
   );
 };
 
-//check if login today
+//check if login today // force to have note
 const LogoutStaff = (req, res, next) => {
   const { phone, note } = req.body;
+  //check if already log out
   Conn.execute(
-    `SELECT phone FROM worktime WHERE phone=? AND day=?`,
+    `SELECT phone FROM worktime WHERE (phone = ? AND end_time IS NOT NULL AND hours IS NOT NULL AND day=?)`,
     [phone, day],
-    function (err, user) {
+    function (err, data) {
       if (err) {
-        res.json({ status: "ERROR", msg: "in select check if login or not" });
-      } else if (user.length == 0) {
-        res.json({ status: "NO USER", msg: "This staff didn't login today!" });
+        res.json({
+          status: "ERROR",
+          msg: "in select check if logout already",
+          err,
+        });
+      } else if (data.length != 0) {
+        res.json({ status: "Duplicated", msg: "This user already logout" });
       } else {
-        if (!note) {
-          Conn.execute(
-            `UPDATE worktime SET end_time = ? WHERE phone = ? AND day = ?`,
-            [time, phone, day],
-            function (err, result) {
-              if (err) {
-                res.json({
-                  status: "ERROR",
-                  msg: "in update without note",
-                  err,
-                });
-              } else {
-                res.json({ status: "OK", msg: "Logout Success!" });
-              }
+        Conn.execute(
+          `SELECT phone,start_time FROM worktime WHERE phone=? AND day=? AND end_time IS NULL AND hours IS NULL`,
+          [phone, day],
+          function (err, user) {
+            if (err) {
+              res.json({
+                status: "ERROR",
+                msg: "in select check if login or not",
+              });
+            } else if (user.length == 0) {
+              res.json({
+                status: "No User",
+                msg: "This staff didn't login today!",
+              });
+            } else {
+              const phone = user[0].phone;
+              const time_1 = new Date();
+              const time_2 = new Date();
+              const start = user[0].start_time.split(":");
+              const end = time.split(":");
+              time_1.setHours(start[0], start[1], start[2]);
+              time_2.setHours(end[0], end[1], end[2]);
+              const hours = convertMsToTime(time_2 - time_1);
+
+              Conn.execute(
+                `UPDATE worktime SET end_time = ?,note = ? ,hours = ? WHERE phone = ? AND day = ?`,
+                [time, note, hours, phone, day],
+                function (err, result) {
+                  if (err) {
+                    res.json({ status: "ERROR", msg: "in update", err });
+                  } else {
+                    res.json({ status: "OK" });
+                  }
+                }
+              );
             }
-          );
-        } else {
-          Conn.execute(
-            `UPDATE worktime SET end_time = ?,note =? WHERE phone = ? AND day = ?`,
-            [time, note, phone, day],
-            function (err, result) {
-              if (err) {
-                res.json({ status: "ERROR", msg: "in update with note", err });
-              } else {
-                res.json({ status: "OK", msg: "Logout Success!" });
-              }
-            }
-          );
-        }
+          }
+        );
       }
     }
   );
 };
 
+const WorkHours = (req, res, next) => {
+  schedule.scheduleJob("0 0 * * *", function () {
+    Conn.execute(
+      `UPDATE worktime SET hours=? WHERE end_time IS NULL `,
+      [8],
+      () => {}
+    );
+  });
+};
+
+function convertMsToTime(milliseconds) {
+  let seconds = Math.floor(milliseconds / 1000);
+  let minutes = Math.floor(seconds / 60);
+
+  seconds = seconds % 60;
+  minutes = minutes % 60;
+
+  let result = Math.round((minutes / 60) * 100) / 100;
+
+  return result;
+}
+
+exports.WorkHours = WorkHours;
 exports.LogoutStaff = LogoutStaff;
 exports.LoginStaff = LoginStaff;

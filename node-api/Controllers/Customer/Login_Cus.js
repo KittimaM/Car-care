@@ -12,7 +12,7 @@ const LoginCus = (req, res) => {
       if (err) {
         res.json({ status: "ERROR in select", msg: err });
       } else if (user.length == 0) {
-        res.json({ status: "NO USER" });
+        res.json({ status: "No User" });
       } else {
         bcrypt.compare(
           cus_password,
@@ -23,7 +23,7 @@ const LoginCus = (req, res) => {
             }
             if (isLogin) {
               const token = jwt.sign({ phone: user[0].phone}, secret, {
-                expiresIn: "1H",
+                expiresIn: "1h",
               });
               res.json({status: "OK",msg: "Login success!",token: token})
             }else{
@@ -35,5 +35,7 @@ const LoginCus = (req, res) => {
     }
   );
 };
+
+
 
 exports.LoginCus = LoginCus;

@@ -1,5 +1,4 @@
 import React from "react";
-import { BrowserRouter, NavLink } from "react-router-dom";
 import NavStaff from "../Navbar/NavStaff";
 
 function RegisterStaff() {

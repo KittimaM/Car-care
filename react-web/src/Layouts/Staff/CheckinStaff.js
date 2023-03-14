@@ -2,8 +2,15 @@ import React from "react";
 import NavStaff from "../Navbar/NavStaff";
 import axios from "axios";
 const CheckinStaff = () => {
-  async function updateData() {
-    const data = { id: "100009", password: "2000" };
+  const checkinStaff = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+  
+    const jsonData = {
+      id: data.get("id"),
+      password: data.get("password"),
+    };
+ 
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -11,21 +18,37 @@ const CheckinStaff = () => {
     };
 
     axios
-      .post("http://localhost:5000/checkin-staff", data, config)
+      .post("http://localhost:5000/checkin-staff", jsonData, config)
       .then((res) => {
         const data = res.data;
-        alert( data.status);
+        alert(data.status);
       })
       .catch((error) => {
         console.error(error);
       });
-  }
+  };
 
   return (
     <div>
       <NavStaff />
       CheckinStaff
-      <button onClick={updateData}>update api</button>
+      <form onSubmit={checkinStaff}>
+        <div className="form-group">
+          <label for="_id">Last Name</label>
+          <input type="text" name="id" id="_id" placeholder="id" required />
+        </div>
+        <div className="form-group">
+          <label for="_password">password</label>
+          <input
+            type="password"
+            name="password"
+            id="_password"
+            placeholder="Password"
+            required
+          />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 };

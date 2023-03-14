@@ -9,24 +9,33 @@ function RegisterCustomer() {
       phone: data.get("phone"),
       firstName: data.get("firstName"),
       lastName: data.get("lastName"),
-      password: data.get("password"),
+      cus_password: data.get("password"),
     };
 
-    fetch("http://localhost:5000/register_customer", {
+    fetch("http://localhost:5000/register_cus", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(jsonData),
-    });
-    alert("Register Success");
+    })
+    .then((res)=>res.json())
+    .then((data)=>{
+      if(data.status === "OK"){
+        alert(data.msg)
+      }else if(data.status === 'Duplicated'){
+        alert(data.msg)
+      }else{
+        console.log(data);
+      }
+    })
   };
   return (
 
 
     <form onSubmit={handleSignUp}>
-
-      <input type="tel" name="phone" pattern="[0-9]{10}" required />
+{/* pattern="[0-9]{10}" */}
+      <input type="tel" name="phone"  required />
       <input type="text" name="firstName" pattern="[A-Za-z]+" required />
       <input type="text" name="lastName" pattern="[A-Za-z]+" required />
       <input type="password" name="password" required />

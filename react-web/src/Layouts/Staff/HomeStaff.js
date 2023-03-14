@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import NavStaff from "../Navbar/NavStaff";
 
 function HomeStaff() {
   return (
-    <div>HomeStaff</div>
-  )
+   <div>
+    <NavStaff/>
+    Home STAFF</div>
+  );
 }
 
-export default HomeStaff
+export default HomeStaff;

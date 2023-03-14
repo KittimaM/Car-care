@@ -5,7 +5,7 @@ function Login() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const jsonData = {
-      phone: data.get("phone"),
+      user: data.get("user"),
       password: data.get("password"),
     };
     fetch("http://localhost:5000/login", {
@@ -17,14 +17,16 @@ function Login() {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         if (data.status === "OK") {
           alert("login success");
           localStorage.setItem("token", data.token);
           if (data.role) {
             alert("staff");
+            window.location = "/home_staff";
           } else {
             alert("customer");
-            window.location="/home_customer"
+            window.location = "/home_customer";
           }
         } else if (data.status === "FAILED" || data.status === "ERROR") {
           alert(data.msg);
@@ -37,14 +39,14 @@ function Login() {
       });
   };
   return (
-    <div className="container">
-      <h1 className="text-center mb-5 text-uppercase text-muted">Login</h1>
-    </div>
-    // <form onSubmit={handleLogin}>
-    //   <input type="tel" name="phone" pattern="[0-9]{10}" required />
-    //   <input type="password" name="password" required />
-    //   <button type="submit">Submit</button>
-    // </form>
+    // <div className="container">
+    //   <h1 className="text-center mb-5 text-uppercase text-muted">Login</h1>
+    // </div> pattern="[0-9]{10}"
+    <form onSubmit={handleLogin}>
+      <input type="tel" name="user" required />
+      <input type="password" name="password" required />
+      <button type="submit">Submit</button>
+    </form>
   );
 }
 

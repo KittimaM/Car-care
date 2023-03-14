@@ -2,151 +2,88 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const Conn = require("../../db");
 
+//check if have role
 const RegisterStaff = (req, res, next) => {
-  const { phone, firstName, lastName, staff_password, staff_id, role } =
+  const { phone, firstName, lastName, staff_password, id_number, role } =
     req.body;
 
-  Conn.execute(
-    `SELECT * FROM staff WHERE phone = ? OR (firstName = ? AND lastName = ? )OR staff_id = ?`,
-    [phone, firstName, lastName, staff_id],
-    function (err, user) {
-      if (err) {
-        res.json({ status: "ERROR in select from staff", msg: err });
-      } else if (user.length != 0) {
-        res.json({ status: "Duplicated", msg: "Already Have This Staff" });
-      } else {
-        bcrypt.hash(staff_password, saltRounds, function (err, hash) {
-          if (err) {
-            res.json({ status: "ERROR in hash password", msg: err });
-          } else {
-            Conn.execute(
-              `INSERT INTO staff (phone,firstName,lastName,staff_password,staff_id,role_id) 
-                            VALUES (?,?,?,?,?,(SELECT id FROM role WHERE name =?))`,
-              [phone, firstName, lastName, hash, staff_id, role],
-              function (err, result) {
-                if (err) {
-                  res.json({ status: "ERROR in insert", msg: err });
-                } else {
-                  res.json({ status: "OK", msg: "Register Staff Success !" });
-                }
-              }
-            );
-          }
-        });
-      }
-    }
-  );
-};
-
-//check role
-const DeleteStaff = (req, res, next) => {
-  const { phone, firstName, lastName, staff_id } = req.body;
-  Conn.execute(
-    `SELECT phone FROM staff WHERE phone = ? OR ( firstName = ? AND lastName = ?)  OR staff_id = ?`,
-    [phone, firstName, lastName, staff_id],
-    function (err, user) {
-      if (err) {
-        res.json({ status: "ERROR in select", msg: err });
-      } else if (user.length === 0) {
-        res.json({ status: "No User" });
-      } else {
-        Conn.execute(
-          `DELETE FROM staff WHERE phone = ? `,
-          [user[0].phone],
-          function (err, result) {
-            if (err) {
-              res.json({ status: "ERROR in del", msg: err });
-            } else {
-              res.json({ status: "OK", msg: "Delete Success!" });
-            }
-          }
-        );
-      }
-    }
-  );
-};
-
-//check if have it or not && check if old and new data is the same
-const UpdateStaff = (req, res, next) => {
-  const {
-    old_phone,
-    phone,
-    firstName,
-    lastName,
-    staff_password,
-    staff_id,
-    role,
-  } = req.body;
-  try {
-    const token = req.headers.authorization.split(" ")[1];
-    const decoded = jwt.verify(token, secret);
-    if (!decoded.role) {
-      res.json({ status: "ERROR", msg: "Cus have login wrong place" });
+  bcrypt.hash(staff_password, saltRounds, function (err, hash) {
+    if (err) {
+      res.json({ status: "ERROR", msg: "in hash" });
     } else {
       Conn.execute(
-        `SELECT * FROM staff WHERE phone = ?`,
-        [old_phone],
-        function (err, user) {
+        `INSERT INTO staff(firstName,lastName,phone,id_number,role_id,staff_password) 
+      VALUES (?,?,?,?,(SELECT id FROM role WHERE name = ?),?)`,
+        [firstName, lastName, phone, id_number, role, hash],
+        function (err, result) {
           if (err) {
-            res.json({ status: "ERROR in select old_phone" });
-          } else if (user.length == 0) {
-            res.json({ status: "No User" });
+            if (err.code === "ER_DUP_ENTRY") {
+              res.json({
+                status: "Duplicated",
+                msg: "This User Already Exist",
+              });
+            } else {
+              res.json({ status: "ERROR", msg: "in insert", err });
+            }
           } else {
-            Conn.execute(
-              `SELECT * FROM staff WHERE phone=? OR (firstName=? AND lastName=?) OR staff_id=?`,
-              [phone, firstName, lastName, staff_id],
-              function (err, isDuplicated) {
-                if (err) {
-                  res.json({ status: "ERROR in select dup" });
-                }
-                if (isDuplicated.length != 0) {
-                  res.json({
-                    status: "Duplicated",
-                    msg: "New data is duplicated with another record",
-                  });
-                } else {
-                  bcrypt.hash(staff_password, saltRounds, function (err, hash) {
-                    if (err) {
-                      res.json({ status: "ERROR in hash" });
-                    } else {
-                      Conn.execute(
-                        `UPDATE staff 
-                        SET phone=?,firstName=?,lastName=?,staff_password=?,staff_id=?,role_id=(SELECT id FROM role WHERE name =?) 
-                        WHERE phone = ?`,
-                        [
-                          phone,
-                          firstName,
-                          lastName,
-                          hash,
-                          staff_id,
-                          role,
-                          old_phone,
-                        ],
-                        function (err, result) {
-                          if (err) {
-                            res.json({ status: "ERROR in update", msg: err });
-                          } else {
-                            res.json({ status: "OK", msg: "Update Success!" });
-                          }
-                        }
-                      );
-                    }
-                  });
-                }
-              }
-            );
+            res.json({ status: "OK" });
           }
         }
       );
     }
-  } catch (err) {
-    res.json({
-      status: "ERROR in token",
-      msg: "didn't have token or didn't pass value",
-    });
-  }
+  });
 };
 
+//check role
+const DeleteStaff = (req, res, next) => {
+  const { id } = req.body;
+  Conn.execute(`DELETE FROM staff WHERE id = ?`, [id], function (err, result) {
+    if (err) {
+      res.json({ status: "ERROR", msg: "in del staff", err });
+    } else {
+      res.json({ status: "OK" });
+    }
+  });
+};
+
+//check if have it or not && check if old and new data is the same
+const UpdateStaff = (req, res, next) => {
+ 
+  const { id, phone, firstName, lastName, id_number, role, staff_password } =
+    req.body;
+  bcrypt.hash(staff_password, saltRounds, function (err, hash) {
+    if (err) {
+      res.json({ status: "ERROR", msg: "in hash", err });
+    } else {
+      Conn.execute(
+        `UPDATE staff SET phone=?,firstName=?,lastName=?,id_number=?,staff_password=?,role_id=(SELECT id FROM role WHERE name = ?) WHERE id = ?`,
+        [phone, firstName, lastName, id_number, hash, role,id],
+        function (err, result) {
+          if (err) {
+            res.json({ status: "ERROR", msg: "in update", err });
+          } else {
+            res.json({ status: "OK" });
+          }
+        }
+      );
+    }
+  });
+};
+
+const FindOneStaff = (req, res, next) => {
+  const { id } = req.body;
+  Conn.execute(`SELECT id FROM staff WHERE id = ?`, [id], function (err, user) {
+    if (err) {
+      res.json({ status: "ERROR", msg: "in select", err });
+    } else if (user.length == 0) {
+      res.json({ status: "No User" });
+    } else {
+      next();
+    }
+  });
+};
+
+exports.FindOneStaff = FindOneStaff
 exports.RegisterStaff = RegisterStaff;
 exports.DeleteStaff = DeleteStaff;
 exports.UpdateStaff = UpdateStaff;

@@ -43,12 +43,15 @@ const { AddIncome, AddExpenses } = require("./Controllers/Shop/Accounting");
 const { Login } = require("./Controllers/Login");
 const { CheckinStaff, IsCheckin } = require("./Controllers/Staff/CheckinStaff");
 const { Auth } = require("./Controllers/Auth");
+const { SelectStaff } = require("./Controllers/SelectStaff");
 
 app.use(cors());
 
 //--Manage who didn't logout-----------------
 WorkHours();
 //--Manage who didn't logout-----------------
+
+app.post('/',jsonParser,SelectStaff)
 
 app.post("/login", jsonParser, Login);
 app.post("/auth",jsonParser,Auth)

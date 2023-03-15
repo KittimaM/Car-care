@@ -32,7 +32,6 @@ const {
   DeleteCarSize,
   UpdateCarSize,
 } = require("./Controllers/Shop/CarSize");
-const { LoginCus } = require("./Controllers/Customer/Login_Cus");
 const {
   AddService,
   DeleteService,
@@ -43,6 +42,7 @@ const { AddCar, DeleteCar, UpdateCar } = require("./Controllers/Customer/Car");
 const { AddIncome, AddExpenses } = require("./Controllers/Shop/Accounting");
 const { Login } = require("./Controllers/Login");
 const { CheckinStaff, IsCheckin } = require("./Controllers/Staff/CheckinStaff");
+const { Auth } = require("./Controllers/Auth");
 
 app.use(cors());
 
@@ -51,6 +51,7 @@ WorkHours();
 //--Manage who didn't logout-----------------
 
 app.post("/login", jsonParser, Login);
+app.post("/auth",jsonParser,Auth)
 
 // app.post("/login-cus", jsonParser, LoginCus);
 app.post("/register_cus", jsonParser, RegisterCustomer);

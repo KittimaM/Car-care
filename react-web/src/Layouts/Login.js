@@ -11,16 +11,17 @@ function Login() {
     fetch("http://localhost:5000/login", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(jsonData),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.status === "OK") {
           alert("login success");
           localStorage.setItem("token", data.token);
+          console.log(localStorage);
           if (data.role) {
             alert("staff");
             window.location = "/home_staff";

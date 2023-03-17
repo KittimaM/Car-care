@@ -26,7 +26,8 @@ function NavbarUser() {
                         )
                     })}
 
-                    <button >Login</button>
+                    <button className='btn-login'  >Login</button>
+                    <button >Sign Up</button>
                 </ul>
               
             </nav>

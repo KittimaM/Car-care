@@ -25,7 +25,7 @@
 
 .nav-menu{
     display: grid;
-    grid-template-columns: repeat(5 , auto);
+    grid-template-columns: repeat(6 , auto);
     grid-gap: 20px;
     list-style: none;
     align-items: center;
@@ -57,7 +57,7 @@
 }
 
 button{
-    background-color: rgb(162, 240, 214);
+    background-color: rgb(203, 236, 159);
     padding: 0.5rem 1rem;
     white-space: nowrap;
     border-radius: 0.3rem;
@@ -70,4 +70,16 @@ button{
 button:hover{
     background-color: #0e0d0d;
     color: rgb(254, 244, 244);
+}
+
+
+.btn-login{
+    background-color: rgb(255, 254, 242);
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+    border-radius: 0.3rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
 }

@@ -3,38 +3,51 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "./NavbarUser.css"
 import { MenuItems } from './MenuItemUser';
 
-function NavbarUser() {
-    
-    return (
-        <>
-            <nav className="NavbarItems">
-                
-                <h1 className = "navbar-logo"> 
-                    <i className="fa-solid fa-car"></i>
-                    Carcare
-                </h1>
-                
-                
-                <ul className='nav-menu'>
-                    {MenuItems.map((item, index) =>{
-                        return(
-                        <li key={index}>
-                            <a className ={item.cName} href= "/">
-                                <i className={item.icon}></i>{item.title}
-                            </a>
-                        </li>
-                        )
-                    })}
+class NavbarUser extends Component {
+    state = {clicked : false};
+    handleClick = () =>{
+        this.setState({ clicked : !this.state.clicked})
+    }
 
-                    <button className='btn-login'  >Login</button>
-                    <button >Sign Up</button>
-                </ul>
-              
-            </nav>
+    render() {
+        return (
+            <>
+                <nav className="NavbarItems">
+                    
+                    <h1 className = "navbar-logo"> 
+                        <i className="fa-solid fa-car"></i>
+                        Carcare
+                    </h1>
     
-            
-        </>
-    )
-}
+                    <div className="menu-icons" onClick={this.handleClick}>
+                
+                        <i className={this.state.clicked ? "fas fa-times" : "fas fa-bars"}></i>
+                    </div>
+                    
+                    
+                    <ul className={this.state.clicked ? "nav-menu active" : "nav-menu "}>
+                        {MenuItems.map((item, index) =>{
+                            return(
+                            <li key={index}>
+                                <a className ={item.cName} href= "/">
+                                    <i className={item.icon}></i>{item.title}
+                                </a>
+                            </li>
+                            )
+                        })}
+    
+                        <button className='btn-login'  >Login</button>
+                        <button >Sign Up</button>
+                    </ul>
+                  
+                </nav>
+        
+                
+            </>
+        )
+    }
+
+    }
+   
     
 export default NavbarUser

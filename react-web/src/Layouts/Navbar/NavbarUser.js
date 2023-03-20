@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "./NavbarUser.css"
 import { MenuItems } from './MenuItemUser';
 
+
+
 class NavbarUser extends Component {
     state = {clicked : false};
     handleClick = () =>{
@@ -10,6 +12,7 @@ class NavbarUser extends Component {
     }
 
     render() {
+        
         return (
             <>
                 <nav className="NavbarItems">
@@ -36,12 +39,12 @@ class NavbarUser extends Component {
                             )
                         })}
     
-                        <button className='btn-login'  >Login</button>
+                        <button className='btn-login' >Login</button>
                         <button >Sign Up</button>
                     </ul>
                   
                 </nav>
-        
+           
                 
             </>
         )

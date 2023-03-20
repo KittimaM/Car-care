@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 
+
+
 import RegisterCustomer from "../Customer/RegisterCustomer";
 import Login from "../Login";
 import FirstPage from "../FirstPage";
@@ -31,3 +33,4 @@ function Index() {
 }
 
 export default Index;
+

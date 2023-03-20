@@ -1,12 +1,9 @@
-//import { BrowserRouter, NavLink, Routes, Route } from "react-router-dom";
+// import { BrowserRouter, NavLink, Routes, Route } from "react-router-dom";
+import React from "react";
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import RegisterCustomer from "./Layouts/Customer/RegisterCustomer";
-// import Login from "./Layouts/Login";
-// import FirstPage from "./Layouts/FirstPage";
-// import RegisterStaff from "./Layouts/Staff/RegisterStaff";
 
-import {Router, Route, Routes } from "react-router-dom";
+
 import Index from "./Layouts/Navbar/Index";
 import NavbarUser from "./Layouts/Navbar/NavbarUser";
 
@@ -14,19 +11,27 @@ import NavbarUser from "./Layouts/Navbar/NavbarUser";
 function App() {
   return (
     <div className ="App">
+        <Index/>
         <NavbarUser/>
 
-        <Index/>
         
-        {/* <Routes> */}
-          {/* <Route path="/register_staff" element={<RegisterStaff />} /> */}
-          {/* <Route path="/" element={<FirstPage />} /> */}
-          {/* <Route path="/login" element={<Login />} /> */}
-          {/* <Route path="/register_customer" element={<RegisterCustomer />} /> */}
-          {/* <Route path="/Index" element={<Index />} /> */}
-
-        {/* </Routes> */}
       
+        {/* <BrowserRouter>
+        <NavLink to="/">HOME</NavLink>
+          <Routes>
+            <Route path="/" element={<NavbarUser />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register_customer" element={<RegisterCustomer />} />
+            <Route path="/home_customer" element={<HomeCustomer />} />
+            <Route path="/home_staff" element={<HomeStaff />} />
+            <Route path="/register_staff" element={<RegisterStaff />} />
+            <Route path="/del_staff" element={<DelStaff />} />
+            <Route path="/update_staff" element={<UpdateStaff />} />
+            <Route path="/checkin_staff" element={<CheckinStaff />} />
+          </Routes>
+          <NavbarUser/>
+      </BrowserRouter>
+       */}
     </div>
   );
 }

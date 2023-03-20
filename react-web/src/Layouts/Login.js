@@ -1,4 +1,5 @@
 import React from "react";
+import "./Login.css";
 
 function Login() {
   const handleLogin = (event) => {
@@ -43,12 +44,38 @@ function Login() {
     // <div className="container">
     //   <h1 className="text-center mb-5 text-uppercase text-muted">Login</h1>
     // </div> pattern="[0-9]{10}"
-    <form onSubmit={handleLogin}>
-      <input type="tel" name="user" required />
-      <input type="password" name="password" required />
-      <button type="submit">Submit</button>
-    </form>
+      
+
+    
+      <div className="center">
+      
+      <h1 className="form-title" id="signup">Log in</h1>
+      
+      <form onSubmit={handleLogin}>
+          <div className="txt_field">
+            <input type="tel" name="user" required />
+            <label>Username</label>
+          </div>
+
+          <div className="txt_field">
+            <input type="password" name="password" required />
+            <label>Password</label>
+          </div>
+
+          <a className="pass" href = "/"> Forgot Password?</a>
+          
+          <button type="submit" className="submit-btn" > Submit</button>
+
+          <div className="signup-link">
+            <a href="/">Sign Up</a>
+          </div>
+
+      </form>
+     
+    </div>
+    
   );
+
 }
 
 export default Login;

@@ -32,15 +32,36 @@ function RegisterCustomer() {
   };
   return (
 
+    <div className="center">
+      <h1 className="form-title" id="signup">Sign Up</h1>
 
-    <form onSubmit={handleSignUp}>
+      <form onSubmit={handleSignUp}>
 {/* pattern="[0-9]{10}" */}
-      <input type="tel" name="phone"  required />
-      <input type="text" name="firstName" pattern="[A-Za-z]+" required />
+      <div className="txt_field">
+        <input type="tel" name="phone"  required />
+        <label>Phone Number</label>
+      </div>
+
+      <div className="txt_field">
+        <input type="text" name="firstName" pattern="[A-Za-z]+" required />
+        <label>Firstname</label>
+      </div>
+
+      <div className="txt_field">
       <input type="text" name="lastName" pattern="[A-Za-z]+" required />
-      <input type="password" name="password" required />
-      <button type="submit">Submit</button>
+        <label>Lastname</label>
+      </div>
+
+      <div className="txt_field">
+        <input type="password" name="password" required />
+        <label>Password</label>
+      </div>
+
+      <button type="submit"  className="submit-btn" >Submit</button>
     </form>
+
+    </div>
+    
   );
 }
 

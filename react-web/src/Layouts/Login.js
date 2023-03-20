@@ -49,7 +49,7 @@ function Login() {
     
       <div className="center">
       
-      <h1 className="form-title" id="signup">Log in</h1>
+      <h1 className="form-title" >Log in</h1>
       
       <form onSubmit={handleLogin}>
           <div className="txt_field">

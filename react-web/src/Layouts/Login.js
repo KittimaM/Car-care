@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import "./Login.css";
 
 function Login() {
@@ -53,7 +54,7 @@ function Login() {
       
       <form onSubmit={handleLogin}>
           <div className="txt_field">
-            <input type="tel" name="user" required />
+            <input type="tel" name="user" pattern="[0-9]{10}" required />
             <label>Username</label>
           </div>
 
@@ -67,7 +68,8 @@ function Login() {
           <button type="submit" className="submit-btn" > Submit</button>
 
           <div className="signup-link">
-            <a href="/">Sign Up</a>
+            {/* <a href="/">Sign Up</a> */}
+            <NavLink to="/register_customer">Sign Up</NavLink>
           </div>
 
       </form>

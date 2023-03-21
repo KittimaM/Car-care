@@ -1,5 +1,7 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import "./RegisterCustomer.css"
+
 
 
 function RegisterCustomer() {
@@ -59,6 +61,12 @@ function RegisterCustomer() {
       </div>
 
       <button type="submit"  className="submit-btn" >Submit</button>
+
+      <div className="login-link">
+            {/* <a href="/">Sign Up</a> */}
+            <NavLink to="/login">Log in</NavLink>
+      </div>
+
     </form>
 
     </div>

@@ -1,4 +1,5 @@
-import React , { Component } from 'react';
+import React , { Component  } from 'react';
+import { NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./NavbarUser.css"
 import { MenuItems } from './MenuItemUser';
@@ -39,8 +40,13 @@ class NavbarUser extends Component {
                             )
                         })}
     
-                        <button className='btn-login' >Login</button>
+                        
+                        <NavLink to="/login" className="btn-navlink" >
+                            <button className='btn-login'>Login</button>
+                        </NavLink>
+                    
                         <button >Sign Up</button>
+
                     </ul>
                   
                 </nav>

@@ -17,9 +17,7 @@ const NavStaff = () => {
         <li>
           <NavLink to="/update_staff">Update Staff</NavLink>
         </li>
-          <li>
-          <NavLink to="/checkin_staff">Checkin Staff</NavLink>
-        </li>
+      
       </ul>
     </div>
   );

@@ -24,7 +24,7 @@ const IsCheckOut = (req, res, next) => {
 };
 
 const CheckOutStaff = (req, res, next) => {
-  const { id, password, note } = req.body;
+  const { id, password } = req.body;
 
   Conn.execute(
     `SELECT id,staff_password FROM staff WHERE id = ? `,
@@ -74,8 +74,8 @@ const CheckOutStaff = (req, res, next) => {
                     const hours = convertMsToTime(time_2 - time_1);
 
                     Conn.execute(
-                      `UPDATE worktime SET end_time = ?,note = ? ,hours = ? WHERE staff_id = ? AND day = ?`,
-                      [time, note, hours, id, day],
+                      `UPDATE worktime SET end_time = ? ,hours = ? WHERE staff_id = ? AND day = ?`,
+                      [time, hours, id, day],
                       function (err, result) {
                         if (err) {
                           res.json({ status: "ERROR", msg: "in update", err });
@@ -98,8 +98,8 @@ const CheckOutStaff = (req, res, next) => {
 const WorkHours = (req, res, next) => {
   schedule.scheduleJob("0 0 * * *", function () {
     Conn.execute(
-      `UPDATE worktime SET hours=?,end_time=?,note=? WHERE end_time IS NULL `,
-      [8,"",""],
+      `UPDATE worktime SET hours=?,end_time=? WHERE end_time IS NULL `,
+      [8, ""],
       () => {}
     );
   });

@@ -1,25 +1,24 @@
 import React from "react";
-import NavStaff from "../Navbar/NavStaff";
+
 import axios from "axios";
-const CheckinStaff = () => {
-  const checkinStaff = (event) => {
+const CheckoutStaff = () => {
+  const handlecheckout = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-  
+
     const jsonData = {
-      id: data.get("id"),
-      password: data.get("password"),
+      id: data.get("checkout_id"),
+      password: data.get("checkout_password"),
     };
- 
+
     const config = {
       headers: {
         "Content-Type": "application/json",
-        
       },
     };
 
     axios
-      .post("http://localhost:5000/checkin-staff", jsonData, config)
+      .post("http://localhost:5000/checkout-staff", jsonData, config)
       .then((res) => {
         const data = res.data;
         alert(data.status);
@@ -31,19 +30,17 @@ const CheckinStaff = () => {
 
   return (
     <div>
-      <NavStaff />
-      CheckinStaff
-      <form onSubmit={checkinStaff}>
+      <h1> Check out </h1>
+      <form onSubmit={handlecheckout}>
         <div className="form-group">
-          <label for="_id">Last Name</label>
-          <input type="text" name="id" id="_id" placeholder="id" required />
+          <label>staff ID</label>
+          <input type="text" name="checkout_id" placeholder="id" required />
         </div>
         <div className="form-group">
-          <label for="_password">password</label>
+          <label>password</label>
           <input
             type="password"
-            name="password"
-            id="_password"
+            name="checkout_password"
             placeholder="Password"
             required
           />
@@ -54,4 +51,4 @@ const CheckinStaff = () => {
   );
 };
 
-export default CheckinStaff;
+export default CheckoutStaff;

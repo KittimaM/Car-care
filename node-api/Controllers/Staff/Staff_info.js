@@ -71,6 +71,7 @@ const UpdateStaff = (req, res, next) => {
 };
 
 const FindOneStaff = (req, res, next) => {
+  // console.log(req.body);
   const { id } = req.body;
   Conn.execute(`SELECT id FROM staff WHERE id = ?`, [id], function (err, user) {
     if (err) {

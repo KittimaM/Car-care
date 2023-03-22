@@ -22,6 +22,7 @@ const {
   AddRoleStaff,
   DeleteRoleStaff,
   UpdateRoleStaff,
+  // SelectRole,
 } = require("./Controllers/Staff/Role_Rights/Role");
 const {
   AddCarSize,
@@ -50,12 +51,13 @@ const {
 } = require("./Controllers/Staff/Role_Rights/Rights");
 const { AddBranch } = require("./Controllers/Shop/Branch");
 const { AddtypeService, DeltypeService, UpdatetypeService } = require("./Controllers/Shop/Typeofservice");
-const { IsCheckOut, CheckOutStaff } = require("./Controllers/Staff/CheckoutStaff");
+const { IsCheckOut, CheckOutStaff, WorkHours } = require("./Controllers/Staff/CheckoutStaff");
+const { SelectOneStaff } = require("./Controllers/Staff/SelectOneStaff");
 
 app.use(cors());
 
 // //--Manage who didn't logout-----------------
-// WorkHours();
+WorkHours()
 // //--Manage who didn't logout-----------------
 
 app.post("/login", jsonParser, Login);
@@ -81,12 +83,15 @@ app.post("/checkout-staff",jsonParser,IsCheckOut,CheckOutStaff)
 
 app.post("/register_staff", jsonParser, RegisterStaff);
 app.post("/del-staff", jsonParser, FindOneStaff, DeleteStaff);
-app.post("/update-staff", jsonParser, FindOneStaff, UpdateStaff);
+app.post("/update-staff", jsonParser, UpdateStaff); //FindOneStarr
+app.post("/select-staff",jsonParser,SelectOneStaff)
 //------------------------------------------
 
 app.post("/add-role", jsonParser, AddRoleStaff);
 app.post("/del-role", jsonParser, DeleteRoleStaff);
 app.post("/update-role", jsonParser, UpdateRoleStaff);
+// app.post("/select-role",jsonParser,SelectRole)
+
 app.post("/add-rights",jsonParser,AddRights)
 app.post("/del-rights",jsonParser,DelRights)
 app.post("/update-rights",jsonParser,UpdateRights)

@@ -1,6 +1,9 @@
 import React from "react";
 import NavStaff from "../Navbar/NavStaff";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
+import CheckoutStaff from "./worktime/CheckoutStaff";
+import CheckinStaff from "./worktime/CheckinStaff";
 
 function HomeStaff() {
   const token = localStorage.getItem("token");
@@ -19,10 +22,9 @@ function HomeStaff() {
 
   const config = {
     headers: {
-      'Authorization': `Bearer ${token}`,
-      "Content-Type": "application/json"
-      
-    }
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
   };
 
   axios.post("http://localhost:5000/auth", config).then((res) => {
@@ -33,6 +35,8 @@ function HomeStaff() {
     <div>
       <NavStaff />
       Home STAFF
+      <CheckinStaff />
+      <CheckoutStaff />
     </div>
   );
 }

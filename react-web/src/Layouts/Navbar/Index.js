@@ -8,7 +8,10 @@ import HomeStaff from "../Staff/HomeStaff";
 import RegisterStaff from "../Staff/RegisterStaff";
 import DelStaff from "../Staff/DelStaff";
 import UpdateStaff from "../Staff/UpdateStaff";
-import CheckinStaff from "../Staff/CheckinStaff";
+import CheckinStaff from "../Staff/worktime/CheckinStaff";
+
+import CheckoutStaff from "../Staff/worktime/CheckoutStaff";
+
 function Index() {
   return (
     <div>
@@ -24,6 +27,7 @@ function Index() {
           <Route path="/del_staff" element={<DelStaff />} />
           <Route path="/update_staff" element={<UpdateStaff />} />
           <Route path="/checkin_staff" element={<CheckinStaff />} />
+          <Route path="/checkout_staff" element={<CheckoutStaff />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -98,6 +98,21 @@ const UpdateRoleStaff = (req, res, next) => {
   );
 };
 
+// const SelectRole = (req,res,next)=>{
+//   console.log(req.body);
+//   // const {id} = req.body
+//   // Conn.execute(`SELECT name FROM role WHERE id = ?`,[id],function(err,result){
+//   //   if(err){
+//   //     res.json({status: "ERROR",msg: 'in select role',err})
+//   //   }else if(result.length == 0 ){
+//   //     res.json({status: "No Role"})
+//   //   }else{
+//   //     res.json({status: "OK" , result : result[0]})
+//   //   }
+//   // })
+// }
+
+// exports.SelectRole = SelectRole
 exports.AddRoleStaff = AddRoleStaff;
 exports.DeleteRoleStaff = DeleteRoleStaff;
 exports.UpdateRoleStaff = UpdateRoleStaff;

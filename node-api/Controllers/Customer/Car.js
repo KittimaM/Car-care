@@ -112,7 +112,21 @@ const UpdateCar = (req, res, next) => {
 
 const SelectCar = (req, res, next) => {
   const { phone } = req.decoded;
-  res.json(phone);
+  Conn.execute(
+    `SELECT id 
+    FROM cuscar 
+    WHERE cus_phone =?`,
+    [phone],
+    function (err, result) {
+      if (err) {
+        res.json({ status: "ERROR", msg: "select car", err });
+      } else if (result.length === 0) {
+        res.json({ status: "No Car" });
+      } else {
+        res.json({ status: "OK", result: result });
+      }
+    }
+  );
 };
 
 exports.SelectCar = SelectCar;

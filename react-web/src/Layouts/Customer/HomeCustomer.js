@@ -3,7 +3,7 @@ import axios from "axios";
 import Select_car from "./Booking/Select_car";
 
 function HomeCustomer() {
-  const [phone, setPhone] = useState(null);
+  const [car, setCar] = useState([]);
 
   const token = localStorage.getItem("token");
 
@@ -19,7 +19,7 @@ function HomeCustomer() {
     .post("http://localhost:5000/select-car", {}, config)
     .then((res) => {
       const data = res.data;
-      console.log(data);
+      setCar(data.result);
     })
     .catch((error) => {
       console.error(error);
@@ -34,13 +34,12 @@ function HomeCustomer() {
   return (
     <div>
       HomeCustomer<button onClick={handleLogout}>Logout</button>
-      {/* {user.map((item) => (
-        <div key={item.phone}>
-          <h2>{item.phone}</h2>
-          <p>{item.description}</p>
-        </div>
-      ))} */}
-      {/* <Select_car/> */}
+      {/* <select defaultValue={car.id}>
+        {car.map((item) => {
+          <option value={item.id}>{item.id}</option>;
+        })}
+      </select>
+      <Select_car/> */}
     </div>
   );
 }

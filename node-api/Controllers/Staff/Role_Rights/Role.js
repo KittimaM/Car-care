@@ -1,9 +1,8 @@
 //check permission
-const Conn = require("../../db");
+const Conn = require("../../../db");
 
 const AddRoleStaff = (req, res, next) => {
-  const { name, salary_rate } = req.body;
-  //check if dup
+  const { name, salary_perH } = req.body;
   Conn.execute(
     `SELECT id FROM role WHERE name = ?`,
     [name],
@@ -14,8 +13,8 @@ const AddRoleStaff = (req, res, next) => {
         res.json({ status: "Duplicated", msg: "This role already exist" });
       } else {
         Conn.execute(
-          `INSERT INTO role (name,salary_rate) VALUES (?,?)`,
-          [name, salary_rate],
+          `INSERT INTO role (name,salary_perH) VALUES (?,?)`,
+          [name, salary_perH],
           function (err, result) {
             if (err) {
               res.json({ status: "ERROR", msg: "in insert role", err });

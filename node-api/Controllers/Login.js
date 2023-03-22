@@ -11,7 +11,6 @@ const time = date.format(now, "HH:mm:ss");
 
 const sql_cus = `SELECT * FROM customer WHERE phone = ? `;
 const sql_staff = `SELECT * FROM staff WHERE id = ? `;
-const worktime = `INSERT INTO worktime (staff_id,day,start_time) VALUES (?,?,?)`;
 
 const Login = (req, res, next) => {
   const { user, password } = req.body;
@@ -59,33 +58,6 @@ const Login = (req, res, next) => {
                   role: staff[0].role_id,
                   token,
                 });
-
-                // Conn.execute(
-                //   worktime,
-                //   [user, day, time],
-                //   function (err, result) {
-                //     if (err) {
-                //       if (err.code === "ER_DUP_ENTRY") {
-                //         res.json({
-                //           status: "Duplicated",
-                //           msg: "This Staff Already Login for today",
-                //         });
-                //       } else {
-                //         res.json({ status: "ERROR", msg: "in insert worktime", err });
-                //       }
-                //     } else {
-                //       const token = jwt.sign(
-                //         { id: staff[0].id, role: staff[0].role_id },
-                //         secret,
-                //         { expiresIn: "20h" }
-                //       );
-                //       res.json({
-                //         status: "OK",
-                //         token,
-                //       });
-                //     }
-                //   }
-                // );
               }
             }
           );
@@ -94,7 +66,5 @@ const Login = (req, res, next) => {
     }
   });
 };
-
-
 
 exports.Login = Login;

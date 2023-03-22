@@ -52,7 +52,7 @@ const CheckinStaff = (req, res, next) => {
 const IsCheckin = (req, res, next) => {
   const { id } = req.body;
   Conn.execute(
-    `SELECT staff_id FROM worktime WHERE staff_id=? AND day=?`,
+    `SELECT staff_id FROM worktime WHERE staff_id=? AND day=? AND start_time IS NOT NULL`,
     [id, day],
     function (err, isCheckin) {
       if (err) {
@@ -65,6 +65,11 @@ const IsCheckin = (req, res, next) => {
     }
   );
 };
+
+
+
+
+
 
 exports.IsCheckin = IsCheckin;
 

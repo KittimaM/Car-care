@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const bodyParser = require("body-parser");
+
 const jsonParser = bodyParser.json();
 require("dotenv").config();
 
@@ -12,11 +13,6 @@ const {
   FindOneCus,
 } = require("./Controllers/Customer/Customer_info");
 const {
-  LoginStaff,
-  LogoutStaff,
-  WorkHours,
-} = require("./Controllers/Staff/Login_Staff");
-const {
   RegisterStaff,
   DeleteStaff,
   UpdateStaff,
@@ -26,7 +22,7 @@ const {
   AddRoleStaff,
   DeleteRoleStaff,
   UpdateRoleStaff,
-} = require("./Controllers/Staff/Role");
+} = require("./Controllers/Staff/Role_Rights/Role");
 const {
   AddCarSize,
   DeleteCarSize,
@@ -37,40 +33,49 @@ const {
   DeleteService,
   UpdateService,
 } = require("./Controllers/Shop/Service");
-const { AddChannel } = require("./Controllers/Shop/Channel");
+const {
+  AddChannel,
+  DelChannel,
+  UpdateChannel,
+} = require("./Controllers/Shop/Channel");
 const { AddCar, DeleteCar, UpdateCar } = require("./Controllers/Customer/Car");
 const { AddIncome, AddExpenses } = require("./Controllers/Shop/Accounting");
 const { Login } = require("./Controllers/Login");
 const { CheckinStaff, IsCheckin } = require("./Controllers/Staff/CheckinStaff");
 const { Auth } = require("./Controllers/Auth");
-const { SelectStaff } = require("./Controllers/SelectStaff");
+const {
+  AddRights,
+  DelRights,
+  UpdateRights,
+} = require("./Controllers/Staff/Role_Rights/Rights");
+const { AddBranch } = require("./Controllers/Shop/Branch");
+const { AddtypeService, DeltypeService, UpdatetypeService } = require("./Controllers/Shop/Typeofservice");
+const { IsCheckOut, CheckOutStaff } = require("./Controllers/Staff/CheckoutStaff");
 
 app.use(cors());
 
-//--Manage who didn't logout-----------------
-WorkHours();
-//--Manage who didn't logout-----------------
-
-app.post('/',jsonParser,SelectStaff)
+// //--Manage who didn't logout-----------------
+// WorkHours();
+// //--Manage who didn't logout-----------------
 
 app.post("/login", jsonParser, Login);
-app.post("/auth",jsonParser,Auth)
+app.post("/auth", jsonParser, Auth);
 
-// app.post("/login-cus", jsonParser, LoginCus);
+
 app.post("/register_cus", jsonParser, RegisterCustomer);
 app.post("/update-cus", jsonParser, FindOneCus, UpdateCustomer);
 app.post("/del-cus", jsonParser, FindOneCus, DeleteCustomer);
-//---
+// //---
 app.post("/add-car-cus", jsonParser, AddCar);
 app.post("/del-car-cus", jsonParser, DeleteCar);
 app.post("/update-car-cus", jsonParser, UpdateCar);
-//---
+// //---
 
-//------------------------------------------
-// app.post("/login-staff", jsonParser, LoginStaff);
-app.post("/checkin-staff",jsonParser,FindOneStaff,IsCheckin,CheckinStaff)
-app.post("/logout-staff", jsonParser, LogoutStaff);
-//------------------------------------------
+// //------------------------------------------
+
+app.post("/checkin-staff", jsonParser, FindOneStaff, IsCheckin, CheckinStaff);
+app.post("/checkout-staff",jsonParser,IsCheckOut,CheckOutStaff)
+// //------------------------------------------
 
 // ****** need authstaff ****
 
@@ -78,9 +83,14 @@ app.post("/register_staff", jsonParser, RegisterStaff);
 app.post("/del-staff", jsonParser, FindOneStaff, DeleteStaff);
 app.post("/update-staff", jsonParser, FindOneStaff, UpdateStaff);
 //------------------------------------------
+
 app.post("/add-role", jsonParser, AddRoleStaff);
 app.post("/del-role", jsonParser, DeleteRoleStaff);
 app.post("/update-role", jsonParser, UpdateRoleStaff);
+app.post("/add-rights",jsonParser,AddRights)
+app.post("/del-rights",jsonParser,DelRights)
+app.post("/update-rights",jsonParser,UpdateRights)
+
 //---------------------------------------------
 app.post("/add-car-size", jsonParser, AddCarSize);
 app.post("/del-car-size", jsonParser, DeleteCarSize);
@@ -93,11 +103,21 @@ app.post("/update-service", jsonParser, UpdateService);
 app.post("/add-income", jsonParser, AddIncome);
 app.post("/add-expenses", jsonParser, AddExpenses);
 
+app.post('/add-branch',jsonParser,AddBranch)
 // ****** need authstaff ******
 
-//------------------- booking ----------------------------
+//--------------typeofservice--------------------
+app.post("/add-type-service", jsonParser, AddtypeService);
+app.post("/del-type-service",jsonParser,DeltypeService)
+app.post("/update-type-service",jsonParser,UpdatetypeService)
+//--------------typeofservice--------------------
+
+// //------------------- channel ----------------------------
 app.post("/add-channel", jsonParser, AddChannel);
-//------------------- booking ----------------------------
+app.post("/del-channel", jsonParser, DelChannel);
+app.post("/update-channel", jsonParser, UpdateChannel);
+// //------------------- channel ----------------------------
+
 app.listen(5000, function () {
   console.log("CORS-enabled web server listening on port 5000");
 });

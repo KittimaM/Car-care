@@ -9,6 +9,8 @@ import NavbarUser from "./Layouts/Navbar/NavbarUser";
 import Login from "./Layouts/Login";
 import RegisterCustomer from "./Layouts/Customer/RegisterCustomer";
 import HomeCustomer from "./Layouts/Customer/HomeCustomer";
+import HomeStaff from "./Layouts/Staff/HomeStaff";
+import House from "./Layouts/Staff/House";
 
 
 
@@ -18,22 +20,25 @@ function App() {
     <div className ="App">
         {/* <Index/> */}
         {/* <NavbarUser/> */}
+        {/* <House/> */}
 
   
         <BrowserRouter>
-        {/* <NavLink to="/">HOME</NavLink> */}
+        <NavLink to="/">HOME</NavLink>
           <Routes>
+            
             <Route path="/" element={<NavbarUser />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register_customer" element={<RegisterCustomer />} />
-            {/* <Route path="/home_customer" element={<HomeCustomer />} />
+            <Route path="/home_customer" element={<HomeCustomer />} />
             <Route path="/home_staff" element={<HomeStaff />} />
-            <Route path="/register_staff" element={<RegisterStaff />} />
+            {/* <Route path="/register_staff" element={<RegisterStaff />} />
             <Route path="/del_staff" element={<DelStaff />} />
             <Route path="/update_staff" element={<UpdateStaff />} />
             <Route path="/checkin_staff" element={<CheckinStaff />} /> */}
           </Routes>
-          <NavbarUser/>
+          
+          
       </BrowserRouter>
       
     </div>
@@ -41,3 +46,4 @@ function App() {
 }
 
 export default App;
+

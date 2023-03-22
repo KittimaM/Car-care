@@ -32,7 +32,7 @@ function HomeStaff() {
   return (
     <div>
       <NavStaff />
-      Home STAFF
+      
     </div>
   );
 }

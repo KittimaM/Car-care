@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Login.css";
+import NavbarUser from "./Navbar/NavbarUser";
 
 function Login() {
   const handleLogin = (event) => {
@@ -46,15 +47,19 @@ function Login() {
     //   <h1 className="text-center mb-5 text-uppercase text-muted">Login</h1>
     // </div> pattern="[0-9]{10}"
       
+    
+    <div>
+      <NavbarUser/> 
 
     
       <div className="center">
+        
       
       <h1 className="form-title" >Log in</h1>
       
       <form onSubmit={handleLogin}>
           <div className="txt_field">
-            <input type="tel" name="user" pattern="[0-9]{10}" required />
+            <input type="tel" name="user"  required />
             <label>Username</label>
           </div>
 
@@ -74,6 +79,7 @@ function Login() {
 
       </form>
      
+    </div>
     </div>
     
   );

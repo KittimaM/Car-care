@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./RegisterCustomer.css"
+import NavbarUser from "../Navbar/NavbarUser";
 
 
 
@@ -35,6 +36,9 @@ function RegisterCustomer() {
   };
   return (
 
+
+    <div>
+      <NavbarUser/> 
     <div className="center">
       <h1 className="form-title" id="signup">Sign Up</h1>
 
@@ -69,6 +73,7 @@ function RegisterCustomer() {
 
     </form>
 
+    </div>
     </div>
     
   );

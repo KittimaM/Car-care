@@ -11,3 +11,13 @@
     font-family: sans-serif;
     /* text-align: center; */
 }
+
+:root{
+    --primaryColor : hsl(94 , 59% , 35%);
+    --HoverColor : #bdf094;
+    --paleGreen : hsl(96 , 75% , 89%);
+    --textColour: hsl(240, 1% , 48%);
+    --greyText: rgb(190, 190 , 190);
+    --inputColour :hsl(330 , 12% , 97%);
+    --bgColour: hsl(220,10%,94%);
+}

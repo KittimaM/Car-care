@@ -29,7 +29,7 @@ const UpdateStaff = () => {
       .then((res) => {
         const data = res.data;
 
-        if (data.status == "OK") {
+        if (data.status === "OK") {
           const user = data.user;
           const role = data.role;
           setStaff_id(user.id);

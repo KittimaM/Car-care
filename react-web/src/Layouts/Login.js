@@ -1,4 +1,6 @@
 import React from "react";
+import config from "./Config";
+import axios from "axios";
 
 function Login() {
   const handleLogin = (event) => {
@@ -8,20 +10,13 @@ function Login() {
       user: data.get("user"),
       password: data.get("password"),
     };
-    fetch("http://localhost:5000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(jsonData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log(data);
+    axios
+      .post("http://localhost:5000/login", jsonData, config)
+      .then((res) => {
+        const data = res.data
         if (data.status === "OK") {
+          localStorage.setItem("token",data.token)
           alert("login success");
-          localStorage.setItem("token", data.token);
-          console.log(localStorage);
           if (data.role) {
             alert("staff");
             window.location = "/home_staff";

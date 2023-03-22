@@ -110,6 +110,12 @@ const UpdateCar = (req, res, next) => {
   );
 };
 
+const SelectCar = (req, res, next) => {
+  const { phone } = req.decoded;
+  res.json(phone);
+};
+
+exports.SelectCar = SelectCar;
 exports.AddCar = AddCar;
 exports.DeleteCar = DeleteCar;
 exports.UpdateCar = UpdateCar;

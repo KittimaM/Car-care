@@ -39,7 +39,7 @@ const {
   DelChannel,
   UpdateChannel,
 } = require("./Controllers/Shop/Channel");
-const { AddCar, DeleteCar, UpdateCar } = require("./Controllers/Customer/Car");
+const { AddCar, DeleteCar, UpdateCar, SelectCar } = require("./Controllers/Customer/Car");
 const { AddIncome, AddExpenses } = require("./Controllers/Shop/Accounting");
 const { Login } = require("./Controllers/Login");
 const { CheckinStaff, IsCheckin } = require("./Controllers/Staff/CheckinStaff");
@@ -71,6 +71,7 @@ app.post("/del-cus", jsonParser, FindOneCus, DeleteCustomer);
 app.post("/add-car-cus", jsonParser, AddCar);
 app.post("/del-car-cus", jsonParser, DeleteCar);
 app.post("/update-car-cus", jsonParser, UpdateCar);
+app.post("/select-car",jsonParser,Auth,SelectCar)
 // //---
 
 // //------------------------------------------

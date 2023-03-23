@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import Queue from "./Queue";
+import Queue from "./route/Queue";
 import NavStaff from "../Navbar/NavStaff";
 
 function HomeStaff() {

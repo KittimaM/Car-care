@@ -1,5 +1,5 @@
 import React from "react";
-import NavStaff from "../Navbar/NavStaff";
+import NavStaff from "../../Navbar/NavStaff";
 import "./queue.css"
 
 

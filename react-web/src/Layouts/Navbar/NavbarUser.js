@@ -45,7 +45,10 @@ class NavbarUser extends Component {
                             <button className='btn-login'>Login</button>
                         </NavLink>
                     
-                        <button >Sign Up</button>
+                        <NavLink to="/register_customer" className="btn-navlink">
+                            <button >Sign Up</button>
+                        </NavLink>
+                        
 
                     </ul>
                   

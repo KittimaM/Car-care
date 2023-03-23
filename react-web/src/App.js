@@ -11,6 +11,7 @@ import RegisterCustomer from "./Layouts/Customer/RegisterCustomer";
 import HomeCustomer from "./Layouts/Customer/HomeCustomer";
 import HomeStaff from "./Layouts/Staff/HomeStaff";
 import House from "./Layouts/Staff/House";
+import FirstPage from "./Layouts/FirstPage";
 
 
 
@@ -20,15 +21,14 @@ function App() {
     <div className ="App">
         {/* <Index/> */}
         {/* <NavbarUser/> */}
-        {/* <House/> */}
         {/* <HomeStaff/> */}
+        {/* <FirstPage/> */}
 
-  
+
+
         <BrowserRouter>
-        <NavLink to="/">HOME</NavLink>
           <Routes>
-            
-            <Route path="/" element={<NavbarUser />} />
+            <Route path="/" element={<FirstPage/>} />
             <Route path="/login" element={<Login />} />
             <Route path="/register_customer" element={<RegisterCustomer />} />
             <Route path="/home_customer" element={<HomeCustomer />} />
@@ -38,8 +38,7 @@ function App() {
             <Route path="/update_staff" element={<UpdateStaff />} />
             <Route path="/checkin_staff" element={<CheckinStaff />} /> */}
           </Routes>
-          
-          
+
       </BrowserRouter>
       
     </div>

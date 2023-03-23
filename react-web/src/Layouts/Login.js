@@ -1,5 +1,5 @@
 import React from "react";
-import config from "./Config";
+
 import axios from "axios";
 
 function Login() {
@@ -10,6 +10,13 @@ function Login() {
       user: data.get("user"),
       password: data.get("password"),
     };
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    
     axios
       .post("http://localhost:5000/login", jsonData, config)
       .then((res) => {

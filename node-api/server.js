@@ -28,6 +28,7 @@ const {
   AddCarSize,
   DeleteCarSize,
   UpdateCarSize,
+  DisplayCarSize,
 } = require("./Controllers/Shop/CarSize");
 const {
   AddService,
@@ -39,7 +40,7 @@ const {
   DelChannel,
   UpdateChannel,
 } = require("./Controllers/Shop/Channel");
-const { AddCar, DeleteCar, UpdateCar, SelectCar } = require("./Controllers/Customer/Car");
+const { AddCar, DeleteCar, UpdateCar } = require("./Controllers/Customer/Car");
 const { AddIncome, AddExpenses } = require("./Controllers/Shop/Accounting");
 const { Login } = require("./Controllers/Login");
 const { CheckinStaff, IsCheckin } = require("./Controllers/Staff/CheckinStaff");
@@ -53,6 +54,9 @@ const { AddBranch } = require("./Controllers/Shop/Branch");
 const { AddtypeService, DeltypeService, UpdatetypeService } = require("./Controllers/Shop/Typeofservice");
 const { IsCheckOut, CheckOutStaff, WorkHours } = require("./Controllers/Staff/CheckoutStaff");
 const { SelectOneStaff } = require("./Controllers/Staff/SelectOneStaff");
+const { ServerT } = require("./Controllers/serverT");
+const { SelectCar } = require("./Controllers/ฺBooking/SelectCar");
+const { SelectService } = require("./Controllers/ฺBooking/SelectService");
 
 app.use(cors());
 
@@ -64,14 +68,19 @@ app.post("/login", jsonParser, Login);
 app.post("/auth", jsonParser, Auth);
 
 
+
+
+app.post("/booking",jsonParser,Auth,SelectCar,SelectService)
+
+
 app.post("/register_cus", jsonParser, RegisterCustomer);
 app.post("/update-cus", jsonParser, FindOneCus, UpdateCustomer);
 app.post("/del-cus", jsonParser, FindOneCus, DeleteCustomer);
 // //---
-app.post("/add-car-cus", jsonParser, AddCar);
+app.post("/add-car-cus", jsonParser,Auth, AddCar);
 app.post("/del-car-cus", jsonParser, DeleteCar);
 app.post("/update-car-cus", jsonParser, UpdateCar);
-app.post("/select-car",jsonParser,Auth,SelectCar)
+
 // //---
 
 // //------------------------------------------
@@ -101,6 +110,7 @@ app.post("/update-rights",jsonParser,UpdateRights)
 app.post("/add-car-size", jsonParser, AddCarSize);
 app.post("/del-car-size", jsonParser, DeleteCarSize);
 app.post("/update-car-size", jsonParser, UpdateCarSize);
+app.post("/show-car-size",jsonParser,DisplayCarSize)
 //------------------------------------------
 app.post("/add-service", jsonParser, AddService);
 app.post("/del-service", jsonParser, DeleteService);
@@ -123,6 +133,11 @@ app.post("/add-channel", jsonParser, AddChannel);
 app.post("/del-channel", jsonParser, DelChannel);
 app.post("/update-channel", jsonParser, UpdateChannel);
 // //------------------- channel ----------------------------
+
+
+
+
+app.post('/servert',jsonParser,Auth,ServerT)
 
 app.listen(5000, function () {
   console.log("CORS-enabled web server listening on port 5000");

@@ -1,53 +1,55 @@
 const Conn = require("../../db");
 
 const AddCar = (req, res, next) => {
-  const { car_size, phone, id } = req.body;
+  const { car_size, id } = req.body;
+  const {phone} = req.decoded
+  console.log("phone ",phone);
   //check if have cus
-  Conn.execute(
-    `SELECT phone FROM customer WHERE phone = ?`,
-    [phone],
-    function (err, user) {
-      if (err) {
-        res.json({ status: "ERROR", msg: "in select user", err });
-      } else if (user.length == 0) {
-        res.json({ status: "No User" });
-      } else {
-        const phone = user[0].phone;
-        //check if right size
-        Conn.execute(
-          `SELECT id FROM carsize WHERE car_size = ?`,
-          [car_size],
-          function (err, isHasCarSize) {
-            if (err) {
-              res.json({ status: "ERROR", msg: "in select carsize", err });
-            } else if (isHasCarSize.length == 0) {
-              res.json({ status: "No Size" });
-            } else {
-              const size = isHasCarSize[0].id;
-              // check if new data is dup
-              Conn.execute(
-                `INSERT INTO cuscar(id,size_id,cus_phone)
-                VALUES (?,?,?)`,
-                [id, size, phone],
-                function (err, result) {
-                  if (err) {
-                    if (err.code === "ER_DUP_ENTRY") {
-                      res.json({ status: "Duplicated", msg: "Already exist" });
-                    } else {
-                      res.json({ status: "ERROR", msg: "in insert", err });
-                    }
-                  } else {
-                    res.json({ status: "OK" });
-                  }
-                }
-              );
-            }
-          }
-        );
-      }
-    }
-  );
-  //
+  // Conn.execute(
+  //   `SELECT phone FROM customer WHERE phone = ?`,
+  //   [phone],
+  //   function (err, user) {
+  //     if (err) {
+  //       res.json({ status: "ERROR", msg: "in select user", err });
+  //     } else if (user.length == 0) {
+  //       res.json({ status: "No User" });
+  //     } else {
+  //       const phone = user[0].phone;
+  //       //check if right size
+  //       Conn.execute(
+  //         `SELECT id FROM carsize WHERE car_size = ?`,
+  //         [car_size],
+  //         function (err, isHasCarSize) {
+  //           if (err) {
+  //             res.json({ status: "ERROR", msg: "in select carsize", err });
+  //           } else if (isHasCarSize.length == 0) {
+  //             res.json({ status: "No Size" });
+  //           } else {
+  //             const size = isHasCarSize[0].id;
+  //             // check if new data is dup
+  //             Conn.execute(
+  //               `INSERT INTO cuscar(id,size_id,cus_phone)
+  //               VALUES (?,?,?)`,
+  //               [id, size, phone],
+  //               function (err, result) {
+  //                 if (err) {
+  //                   if (err.code === "ER_DUP_ENTRY") {
+  //                     res.json({ status: "Duplicated", msg: "Already exist" });
+  //                   } else {
+  //                     res.json({ status: "ERROR", msg: "in insert", err });
+  //                   }
+  //                 } else {
+  //                   res.json({ status: "OK" });
+  //                 }
+  //               }
+  //             );
+  //           }
+  //         }
+  //       );
+  //     }
+  //   }
+  // );
+  // //
 };
 
 const DeleteCar = (req, res, next) => {
@@ -110,26 +112,7 @@ const UpdateCar = (req, res, next) => {
   );
 };
 
-const SelectCar = (req, res, next) => {
-  const { phone } = req.decoded;
-  Conn.execute(
-    `SELECT id 
-    FROM cuscar 
-    WHERE cus_phone =?`,
-    [phone],
-    function (err, result) {
-      if (err) {
-        res.json({ status: "ERROR", msg: "select car", err });
-      } else if (result.length === 0) {
-        res.json({ status: "No Car" });
-      } else {
-        res.json({ status: "OK", result: result });
-      }
-    }
-  );
-};
 
-exports.SelectCar = SelectCar;
 exports.AddCar = AddCar;
 exports.DeleteCar = DeleteCar;
 exports.UpdateCar = UpdateCar;

@@ -106,6 +106,18 @@ const UpdateCarSize = (req, res, next) => {
   );
 };
 
+
+const DisplayCarSize = (req,res,next) =>{
+  Conn.execute(`SELECT car_size FROM carsize`,[],function(err,result){
+    if(err){
+      res.json({status: "ERROR",msg: " in display size",err})
+    }else{
+      res.json({status: "OK",result})
+    }
+  })
+}
+
+exports.DisplayCarSize = DisplayCarSize
 exports.AddCarSize = AddCarSize;
 exports.DeleteCarSize = DeleteCarSize;
 exports.UpdateCarSize = UpdateCarSize;

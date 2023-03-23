@@ -11,6 +11,7 @@ import UpdateStaff from "../Staff/UpdateStaff";
 import CheckinStaff from "../Staff/worktime/CheckinStaff";
 
 import CheckoutStaff from "../Staff/worktime/CheckoutStaff";
+import Booking from "../Customer/Booking/Booking";
 
 function Index() {
   return (
@@ -28,6 +29,7 @@ function Index() {
           <Route path="/update_staff" element={<UpdateStaff />} />
           <Route path="/checkin_staff" element={<CheckinStaff />} />
           <Route path="/checkout_staff" element={<CheckoutStaff />} />
+          <Route path="/booking" element={<Booking />} />
         </Routes>
       </BrowserRouter>
     </div>

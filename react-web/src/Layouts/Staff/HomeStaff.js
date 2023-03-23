@@ -1,6 +1,7 @@
 import React from "react";
-import NavStaff from "../Navbar/NavStaff";
 import axios from "axios";
+import Queue from "./Queue";
+import NavStaff from "../Navbar/NavStaff";
 
 function HomeStaff() {
   const token = localStorage.getItem("token");
@@ -31,7 +32,8 @@ function HomeStaff() {
 
   return (
     <div>
-      <NavStaff />
+      <NavStaff/>
+      <Queue/>
       
     </div>
   );

@@ -3,8 +3,10 @@ import { NavLink } from "react-router-dom";
 
 const NavStaff = () => {
   return (
+    <>
+    
 
-    <div className="bodys"> 
+    
         <nav>
 
           <div>
@@ -65,7 +67,7 @@ const NavStaff = () => {
           </div>
         </nav> 
 
-        <section className="dashboard">
+        {/* <section className="dashboard">
           <div className="top">
 
             <div className="search-box">
@@ -84,25 +86,28 @@ const NavStaff = () => {
       </div>
       
         
-    // <div>
-    //   <ul>
-    //     <li>
-    //       <NavLink to="/home_staff"> STAFF</NavLink>
-    //     </li>
-    //     <li>
-    //       <NavLink to="/register_staff">Register</NavLink>
-    //     </li>
-    //     <li>
-    //       <NavLink to="/del_staff">Delete Staff</NavLink>
-    //     </li>
-    //     <li>
-    //       <NavLink to="/update_staff">Update Staff</NavLink>
-    //     </li>
-    //       <li>
-    //       <NavLink to="/checkin_staff">Checkin Staff</NavLink>
-    //     </li>
-    //   </ul>
-    // </div>
+    <div>
+      <ul>
+        <li>
+          <NavLink to="/home_staff"> STAFF</NavLink>
+        </li>
+        <li>
+          <NavLink to="/register_staff">Register</NavLink>
+        </li>
+        <li>
+          <NavLink to="/del_staff">Delete Staff</NavLink>
+        </li>
+        <li>
+          <NavLink to="/update_staff">Update Staff</NavLink>
+        </li>
+          <li>
+          <NavLink to="/checkin_staff">Checkin Staff</NavLink>
+        </li>
+      </ul>
+    </div> */}
+
+  </>
+    
   );
 };
 

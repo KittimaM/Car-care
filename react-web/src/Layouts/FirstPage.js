@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 function FirstPage() {
-  const [errorMessage, setErrorMessage] = React.useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleClick = () => {
     setErrorMessage("Example error message!");
   };
+
   return (
     <div>
       <ul>

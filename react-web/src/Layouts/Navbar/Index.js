@@ -17,6 +17,7 @@ function Index() {
   return (
     <div>
       <BrowserRouter>
+   
         <NavLink to="/">HOME</NavLink>
         <Routes>
           <Route path="/" element={<FirstPage />} />

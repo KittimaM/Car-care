@@ -1,0 +1,57 @@
+import React, { useEffect, useRef, useState } from "react";
+import axios from "axios";
+
+export const SelectCar = () => {
+  const [have, setHave] = useState(false);
+  const [car, setCar] = useState();
+  const token = localStorage.getItem("token");
+  const fetchCusCar = async () => {
+    const res = await axios.get("http://localhost:5000/select-car", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = res.data;
+    if (data.status === "OK") {
+      setHave(true);
+      setCar(data.result);
+    } else if (data.status === "No Car") {
+      setHave(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCusCar();
+  }, []);
+
+  const selectedCar = useRef();
+  let BookCar;
+  const SubmitCar = (event) => {
+    event.preventDefault();
+
+  };
+
+  return (
+
+    <div>
+      <form onSubmit={SubmitCar}>
+        {have && (
+          <select ref={selectedCar}>
+            {car.map((item, index) => {
+              return (
+                <option
+                  key={index}
+                  label={item.id + " " + item.size}
+                  value={item.id}
+                ></option>
+              );
+            })}
+          </select>
+        )}
+        <button type="submit">Select</button>
+      </form>
+    </div>,
+ )
+};

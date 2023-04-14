@@ -1,0 +1,30 @@
+ const [data, setData] = useState([]);
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setToken(token);
+  }, []);
+
+  useEffect(() => {
+    const fetchCusCar = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/select-car", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setData(res.data.result);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (token) {
+      fetchCusCar();
+    }
+  }, [token]);
+
+  return [token, data];

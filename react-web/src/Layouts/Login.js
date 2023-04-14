@@ -23,18 +23,21 @@ function Login() {
         const data = res.data
         if (data.status === "OK") {
           localStorage.setItem("token",data.token)
+          console.log("token is : ",data.token);
           alert("login success");
           if (data.role) {
             alert("staff");
-            window.location = "/home_staff";
+            // window.location = "/home_staff";
           } else {
             alert("customer");
             window.location = "/home_customer";
           }
         } else if (data.status === "FAILED" || data.status === "ERROR") {
-          alert(data.msg);
+          // alert(data.msg);
+          console.log(data.msg);
         } else {
-          alert("Login Failed");
+          // alert("Login Failed");
+          console.log("login failed");
         }
       })
       .catch((error) => {

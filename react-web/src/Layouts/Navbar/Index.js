@@ -33,6 +33,7 @@ function Index() {
           <Route path="/checkout_staff" element={<CheckoutStaff />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/access_config" element={<AccessConfig/>}/>
+          
         </Routes>
       </BrowserRouter>
     </div>

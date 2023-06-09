@@ -24,8 +24,8 @@ const IsCheckOut = (req, res, next) => {
 };
 
 const CheckOutStaff = (req, res, next) => {
+  // เพิ่ม remark เมื่อไม่ได้ออกงานตามปกติ
   const { id, password } = req.body;
-
   Conn.execute(
     `SELECT id,staff_password FROM staff WHERE id = ? `,
     [id],
@@ -96,6 +96,7 @@ const CheckOutStaff = (req, res, next) => {
 };
 
 const WorkHours = (req, res, next) => {
+  //จะแก้เป็น ถ้าไม่ checkout ออกจะขึ้นหมายเหตุไว้
   schedule.scheduleJob("0 0 * * *", function () {
     Conn.execute(
       `UPDATE worktime SET hours=?,end_time=? WHERE end_time IS NULL `,

@@ -1,20 +1,18 @@
 const Conn = require("../db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const date = require("date-and-time");
+// const date = require("date-and-time");
 const secret = process.env.SECRET_WORD;
 
-const schedule = require("node-schedule");
-const now = new Date();
-const day = date.format(now, "YYYY-MM-DD");
-const time = date.format(now, "HH:mm:ss");
+// const schedule = require("node-schedule");
+// const now = new Date();
+// const day = date.format(now, "YYYY-MM-DD");
+// const time = date.format(now, "HH:mm:ss");
 
-const sql_cus = `SELECT * FROM customer WHERE phone = ? `;
-const sql_staff = `SELECT * FROM staff WHERE id = ? `;
 
 const Login = (req, res, next) => {
   const { user, password } = req.body;
-  Conn.execute(sql_cus, [user], function (err, cus) {
+  Conn.execute(`SELECT * FROM customer WHERE phone = ? `, [user], function (err, cus) {
     if (err) {
       res.json({ status: "ERROR", msg: "in sql cus", err });
     } else if (cus.length != 0) {
@@ -23,7 +21,7 @@ const Login = (req, res, next) => {
           res.json({ status: "ERROR", msg: "compare cus", err });
         }
         if (!isLoginCus) {
-          res.json({ status: "ERROR", msg: "password incorrect" });
+          res.json({ status: "ERROR", msg: "username or password incorrect" });
         } else {
           const token = jwt.sign({ phone: cus[0].phone }, secret, {
             expiresIn: "1h",
@@ -32,11 +30,11 @@ const Login = (req, res, next) => {
         }
       });
     } else {
-      Conn.execute(sql_staff, [user], function (err, staff) {
+      Conn.execute(`SELECT * FROM staff WHERE id = ? `, [user], function (err, staff) {
         if (err) {
           res.json({ status: "ERROR", msg: "in sql staff", err });
         } else if (staff.length == 0) {
-          res.json({ status: "No User" });
+          res.json({ status: "ERROR", msg: "username or password incorrect" });
         } else {
           bcrypt.compare(
             password,
@@ -46,7 +44,10 @@ const Login = (req, res, next) => {
                 res.json({ status: "ERROR", msg: "compare staff", err });
               }
               if (!isLoginStaff) {
-                res.json({ status: "ERROR", msg: "password incorrect" });
+                res.json({
+                  status: "ERROR",
+                  msg: "username or password incorrect",
+                });
               } else {
                 const token = jwt.sign(
                   { id: staff[0].id, role: staff[0].role_id },

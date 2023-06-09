@@ -1,6 +1,12 @@
 //check permission
 const Conn = require("../../../db");
 
+const RoleStaff = (req, res, next) => {
+  Conn.execute(`SELECT * FROM role`, function (err, result) {
+    res.json(result)
+  })
+}
+
 const AddRoleStaff = (req, res, next) => {
   const { name, salary_perH } = req.body;
   Conn.execute(
@@ -113,6 +119,7 @@ const UpdateRoleStaff = (req, res, next) => {
 // }
 
 // exports.SelectRole = SelectRole
+exports.RoleStaff = RoleStaff;
 exports.AddRoleStaff = AddRoleStaff;
 exports.DeleteRoleStaff = DeleteRoleStaff;
 exports.UpdateRoleStaff = UpdateRoleStaff;

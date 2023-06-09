@@ -42,8 +42,8 @@ const {
 } = require("./Controllers/Shop/Channel");
 const { AddCar, DeleteCar, UpdateCar } = require("./Controllers/Customer/Car");
 const { AddIncome, AddExpenses } = require("./Controllers/Shop/Accounting");
-const { Login } = require("./Controllers/Login");
-const { CheckinStaff, IsCheckin } = require("./Controllers/Staff/CheckinStaff");
+// const { Login } = require("./Controllers/Login");
+// const { CheckinStaff, IsCheckin } = require("./Controllers/Staff/CheckinStaff");
 const { Auth } = require("./Controllers/Auth");
 const {
   AddRights,
@@ -66,19 +66,18 @@ const { SelectOneStaff } = require("./Controllers/Staff/SelectOneStaff");
 const { SelectCar } = require("./Controllers/Booking/SelectCar");
 const { SelectService } = require("./Controllers/Booking/SelectService");
 
-
 app.use(cors());
 
 // //--Manage who didn't logout-----------------
 WorkHours();
 // //--Manage who didn't logout-----------------
 
-app.post("/login", jsonParser, Login);
+// app.post("/login", jsonParser, Login);
 // app.post("/auth", jsonParser, Auth);
 
 // booking---------------------------------------------------------++++
 app.get("/select-car", jsonParser, Auth, SelectCar);
-app.post("/select-service",jsonParser,SelectService)
+app.post("/select-service", jsonParser, SelectService);
 // booking---------------------------------------------------------++++
 
 app.post("/register_cus", jsonParser, RegisterCustomer);
@@ -93,8 +92,8 @@ app.post("/update-car-cus", jsonParser, UpdateCar);
 
 // //------------------------------------------
 
-app.post("/checkin-staff", jsonParser, FindOneStaff, IsCheckin, CheckinStaff);
-app.post("/checkout-staff", jsonParser, IsCheckOut, CheckOutStaff);
+// app.post("/checkin-staff", jsonParser, FindOneStaff, IsCheckin, CheckinStaff);
+// app.post("/checkout-staff", jsonParser, IsCheckOut, CheckOutStaff);
 // //------------------------------------------
 
 // ****** need authstaff ****
@@ -142,6 +141,21 @@ app.post("/add-channel", jsonParser, AddChannel);
 app.post("/del-channel", jsonParser, DelChannel);
 app.post("/update-channel", jsonParser, UpdateChannel);
 // //------------------- channel ----------------------------
+
+const feedRoute = require("./Routes/feed");
+const LoginRoute = require("./Routes/Login");
+const CheckinStaffRoute = require("./Routes/CheckinStaff");
+const CheckoutStaffRoute = require("./Routes/CheckoutStaff");
+
+app.use(bodyParser.json());
+
+app.use("/feed", feedRoute); 
+app.use("/api/login", LoginRoute);
+app.use("/api/checkin-staff", CheckinStaffRoute);
+app.use("/api/checkout-staff", CheckoutStaffRoute);
+
+
+
 
 
 

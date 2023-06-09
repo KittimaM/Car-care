@@ -12,6 +12,7 @@ import CheckinStaff from "../Staff/worktime/CheckinStaff";
 
 import CheckoutStaff from "../Staff/worktime/CheckoutStaff";
 import Booking from "../Customer/Booking/Booking";
+import AccessConfig from "../Staff/AccessConfig";
 
 function Index() {
   return (
@@ -31,6 +32,7 @@ function Index() {
           <Route path="/checkin_staff" element={<CheckinStaff />} />
           <Route path="/checkout_staff" element={<CheckoutStaff />} />
           <Route path="/booking" element={<Booking />} />
+          <Route path="/access_config" element={<AccessConfig/>}/>
         </Routes>
       </BrowserRouter>
     </div>

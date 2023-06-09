@@ -1,3 +1,4 @@
+// สร้างสิทธิให้ครบแล้วลบไฟล์นี้ทิ้ง
 const Conn = require("../../../db");
 // check auth
 const AddRights = (req, res, next) => {

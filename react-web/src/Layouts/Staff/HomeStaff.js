@@ -8,8 +8,6 @@ import CheckinStaff from "./worktime/CheckinStaff";
 function HomeStaff() {
   const token = localStorage.getItem("token");
 
-  console.log("token is ", token);
-
   // fetch("http://localhost:5000/auth", {
   //   method: "POST",
   //   headers: {
@@ -20,16 +18,16 @@ function HomeStaff() {
   //   .then((res) => res.json())
   //   .then((data) => console.log(data));
 
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-  };
+  // const config = {
+  //   headers: {
+  //     Authorization: `Bearer ${token}`,
+  //     "Content-Type": "application/json",
+  //   },
+  // };
 
-  axios.post("http://localhost:5000/auth", config).then((res) => {
-    console.log(res);
-  });
+  // axios.post("http://localhost:5000/auth", config).then((res) => {
+  //   console.log(res);
+  // });
 
   return (
     <div>

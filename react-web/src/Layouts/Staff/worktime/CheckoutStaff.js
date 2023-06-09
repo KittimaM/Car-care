@@ -18,7 +18,7 @@ const CheckoutStaff = () => {
     };
 
     axios
-      .post("http://localhost:5000/checkout-staff", jsonData, config)
+      .post("http://localhost:5000/api/checkout-staff", jsonData, config)
       .then((res) => {
         const data = res.data;
         alert(data.status);

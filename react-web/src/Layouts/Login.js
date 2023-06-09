@@ -18,7 +18,7 @@ function Login() {
     };
     
     axios
-      .post("http://localhost:5000/login", jsonData, config)
+      .post("http://localhost:5000/api/login", jsonData, config)
       .then((res) => {
         const data = res.data
         if (data.status === "OK") {
@@ -27,7 +27,8 @@ function Login() {
           alert("login success");
           if (data.role) {
             alert("staff");
-            // window.location = "/home_staff";
+            localStorage.setItem("role",data.role);
+            window.location = "/home_staff";
           } else {
             alert("customer");
             window.location = "/home_customer";

@@ -18,7 +18,7 @@ const CheckinStaff = () => {
     };
 
     axios
-      .post("http://localhost:5000/checkin-staff", jsonData, config)
+      .post("http://localhost:5000/api/checkin-staff", jsonData, config)
       .then((res) => {
         const data = res.data;
         alert(data.status);
@@ -30,6 +30,7 @@ const CheckinStaff = () => {
 
   return (
     <div>
+      {/* แก้ checkin ให้ ดึงค่าจากคนที่login แล้วเหลือแค่กดปุ่มเช็คอิน */}
       <h1>Check in</h1>
       <form onSubmit={handlecheckin}>
         <div className="form-group">

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from 'axios'
+import NavbarUser from "../Navbar/NavbarUser";
 
 function HomeCustomer() {
   const [user, setUser] = useState([]);
@@ -28,6 +29,7 @@ function HomeCustomer() {
   return (
     <div>
       HomeCustomer
+      <NavbarUser/>
       {/* {user.map((item) => (
         <div key={item.phone}>
           <h2>{item.phone}</h2>

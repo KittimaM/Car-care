@@ -13,6 +13,11 @@ import Index from './Layouts/Navbar/Index'
 // >>>>>>> f86b1e9f605b5fbc4f7dda616f91254dcbeff2a2
 
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(<Index />)
+
+root.render(
+    <>
+        <App />
+    </>
+    
+)

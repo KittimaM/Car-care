@@ -1,9 +1,8 @@
 import React from "react";
-import NavStaff from "../Navbar/NavStaff";
 import axios from "axios";
-import { NavLink } from "react-router-dom";
-import CheckoutStaff from "./worktime/CheckoutStaff";
-import CheckinStaff from "./worktime/CheckinStaff";
+import Queue from "./route/Queue";
+import NavStaff from "../Navbar/NavStaff";
+import SidebarNavSt from "../Navbar/SidebarNavSt";
 
 function HomeStaff() {
   const token = localStorage.getItem("token");
@@ -33,10 +32,10 @@ function HomeStaff() {
 
   return (
     <div>
-      <NavStaff />
-      Home STAFF
-      <CheckinStaff />
-      <CheckoutStaff />
+      {/* <NavStaff/>
+      <Queue/> */}
+      <SidebarNavSt/>
+      
     </div>
   );
 }

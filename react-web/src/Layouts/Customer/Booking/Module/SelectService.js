@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import SelectCar from "./SelectCar";
+import SelectTime from "./SelectTime";
 
 const SelectService = (props) => {
   let time = 0;
   let price = 0;
 
   const [order, setOrder] = useState(props.order);
-  console.log("order ", order);
 
   const [totalTime, setTotaltime] = useState("");
   const [totalPrice, setTotalPrice] = useState("");
@@ -62,15 +62,17 @@ const SelectService = (props) => {
     // console.log(selectedService);
     service.map((item) => {
       selectedService.map((selected) => {
+        // do not edit below code
         if (selected == item.id) {
-          console.log(item);
           time += item.use_time;
           price += item.price;
         }
       });
     });
 
-    setOrder({ ...order, ["service"]: selectedService });
+    const keyService = "service";
+
+    setOrder({ ...order, [keyService]: selectedService });
 
     setTotalPrice(price);
     setTotaltime(time);
@@ -79,12 +81,15 @@ const SelectService = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const keyTime = "totalTime";
+    const keyPrice = "totalPrice";
     setOrder({
       ...order,
-      ["total_time"]: totalTime,
-      ["total_price"]: totalPrice,
+      [keyTime]: totalTime,
+      [keyPrice]: totalPrice,
     });
     console.log("order is ", order);
+    setStatus(true);
   };
 
   const handleCancel = (event) => {
@@ -98,14 +103,21 @@ const SelectService = (props) => {
     return <SelectCar />;
   }
 
+  if (status) {
+    return <SelectTime order={order} />;
+  }
+
   return (
     <div>
-      <form onSubmit={handleCancel}>
-        <h1>{order.carId}</h1>
-        <button type="submit"> Cancel</button>
-      </form>
+      <h1>{order.carId}</h1>
 
-      {haveService ? (
+      {chooseService ? (
+        <form onSubmit={handleSubmit}>
+          {/* display service */}
+          total time is {totalTime} minutes And total price is {totalPrice} bath
+          <button type="submit">Submit</button>
+        </form>
+      ) : haveService ? (
         <form onSubmit={handleSelect}>
           {service.map((item) => {
             return (
@@ -125,12 +137,8 @@ const SelectService = (props) => {
       ) : (
         "NO SERVICE AVALIABLE"
       )}
-      {chooseService && (
-        <form onSubmit={handleSubmit}>
-          total time is {totalTime} minutes And total price is {totalPrice} bath
-          <button type="submit">Submit</button>
-        </form>
-      )}
+
+      <button onClick={handleCancel}>Cancel</button>
     </div>
   );
 };

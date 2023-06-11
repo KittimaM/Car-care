@@ -1,9 +1,15 @@
-import React from 'react'
+import React from "react";
 
 const SelectTime = (props) => {
-  return (
-    <div>SelectTime</div>
-  )
-}
+  const today = new Date();
+  const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+  const dateString = tomorrow.toLocaleDateString("th-TH");
 
-export default SelectTime
+  return (
+    <div>
+      <p>Tomorrow's date in Thailand is {dateString}.</p>
+    </div>
+  );
+};
+
+export default SelectTime;
